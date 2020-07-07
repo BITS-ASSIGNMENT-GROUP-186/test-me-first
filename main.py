@@ -8,13 +8,19 @@ from utils import PatientUtils
 
 
 def read_patient_info():
+    """
+    Method to read the input file and register the patients
+    :return: None
+    """
     try:
         file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6a.txt'))
+        patient_utils = PatientUtils()
         with open(file_path, 'r') as file:
-            patient_data = file.read()
-            # TODO: parsing logic to be added still
-            patient_utils = PatientUtils()
-            patient_utils.registerPatient(patient_data)
+            patient_data = file.read().splitlines()
+            for data in patient_data:
+                name, age = data.split(",")
+                patient_utils.registerPatient(name=name.strip(), age=age.strip())
+        patient_utils.displayPatients()
     except Exception as e:
         raise e
 

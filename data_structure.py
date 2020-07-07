@@ -9,90 +9,78 @@ TestingQueue: A max heap containing the patient id sorted in order of next patie
 
 # Represent a node of doubly linked list
 class PatientRecord:
-    def __init__(self, name, age, id):
-        self.patient_id = str(id) + str(age)
+    def __init__(self, name, age, patient_id):
+        self.patient_id = patient_id
         self.name = name
         self.age = age
         self.left = None
         self.right = None
 
+
 class PatientList:
     # Represent the head and tail of the doubly linked list
     def __init__(self):
-        self.head = None;
-        self.tail = None;
+        self.head = None
+        self.tail = None
 
-        # addNode() will add a node to the list
-
-    def addNode(self,name, age, id):
+    # add() will add a node to the list
+    def add(self, name, age, patient_id):
         # Create a new node
-        newPatient = PatientRecord(name, age, id);
+        new_patient = PatientRecord(name, age, patient_id)
 
         # If list is empty
-        if (self.head == None):
+        if not self.head:
             # Both head and tail will point to newNode
-            self.head = self.tail = newPatient;
+            self.head = self.tail = new_patient
             # head's previous will point to None
-            self.head.left = None;
+            self.head.left = None
             # tail's next will point to None, as it is the last node of the list
-            self.tail.right = None;
+            self.tail.right = None
         else:
             # newNode will be added after tail such that tail's next will point to newNode
-            self.tail.right = newPatient;
+            self.tail.right = new_patient
             # newNode's previous will point to tail
-            newPatient.left = self.tail;
+            new_patient.left = self.tail
             # newNode will become new tail
-            self.tail = newPatient;
+            self.tail = new_patient
             # As it is last node, tail's next will point to None
-            self.tail.right = None;
+            self.tail.right = None
 
-            # display() will print out the nodes of the list
-
+    # display() will print out the nodes of the list
     def display(self):
         # Node current will point to head
-        current = self.head;
-        if (self.head == None):
-            print("List is empty");
-            return;
-        print("Nodes of doubly linked list: ");
-        while (current != None):
+        current = self.head
+        if not self.head:
+            print("List is empty")
+            return
+        
+        print("Nodes of doubly linked list: ")
+        while current is not None:
             # Prints each node by incrementing pointer.
-            print(current.name),;
-            current = current.right;
+            print(current.name)
+            current = current.right
 
 
-dList = PatientList();
-# Add nodes to the list
-dList.addNode("abc",12,342);
-dList.addNode("abc2",43,342);
-
-
-
-
-# Displays the nodes present in the list
-dList.display();
-
-
-class PriorityQueueBase:
+class TestingQueueBase:
     """Abstract base class for a priority queue."""
 
     class _Item:
         """Lightweight composite to store priority queue items."""
-        __slots__ = '_key' , '_value'
+        __slots__ = '_key', '_value'
 
-        def __init__ (self, k, v):
+        def __init__(self, k, v):
             self._key = k
             self._value = v
 
-        def __lt__ (self, other):
+        def __lt__(self, other):
             return self._key < other._key # compare items based on their keys
 
-    def is_empty(self): # concrete method assuming abstract len
+    def is_empty(self):  # concrete method assuming abstract len
         """Return True if the priority queue is empty."""
         return len(self) == 0
 
 
-class TestingQueue(PriorityQueueBase): # base class defines Item
+class TestingQueue(TestingQueueBase):
     """
     A max-oriented priority queue implemented with a binary heap.
     """
@@ -193,15 +181,15 @@ class TestingQueue(PriorityQueueBase): # base class defines Item
             print("Next patient for testing is: " + self.max())
             i += 1
         print("----------------------------------------------")
-
-tstngQ = TestingQueue()
-tstngQ.add(100455,"John")
-tstngQ.add(100160,"Surya")    #equivalent to enqueuePatient(self, PatId)
-tstngQ.add(100357,"Rishi")
-tstngQ.add(100254,"Ajay")
-
-tstngQ.display()
-
-tstngQ.display_x(3)
-
+#
+# tstngQ = TestingQueue()
+# tstngQ.add(100455,"John")
+# tstngQ.add(100160,"Surya")    #equivalent to enqueuePatient(self, PatId)
+# tstngQ.add(100357,"Rishi")
+# tstngQ.add(100254,"Ajay")
+#
+# tstngQ.display()
+#
+# tstngQ.display_x(3)
+#
 
