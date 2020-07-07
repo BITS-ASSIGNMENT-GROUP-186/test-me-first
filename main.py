@@ -4,6 +4,7 @@ files
 """
 
 import os
+from utils import PatientUtils
 
 
 def read_patient_info():
@@ -11,7 +12,9 @@ def read_patient_info():
         file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6a.txt'))
         with open(file_path, 'r') as file:
             patient_data = file.read()
-            print(patient_data)
+            # TODO: parsing logic to be added still
+            patient_utils = PatientUtils()
+            patient_utils.registerPatient(patient_data)
     except Exception as e:
         raise e
 
