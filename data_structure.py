@@ -60,6 +60,21 @@ class PatientList:
             print(current.name)
             current = current.right
 
+    def __len__(self):
+        current = self.head
+        if not self.head:
+            raise Exception("List is empty!!")
+            return
+
+        count = 0
+        while current is not None:
+            count+=1
+            current = current.right
+        return count
+
+    def getList(self):
+        return list(self.current)
+
 
 class TestingQueueBase:
     """Abstract base class for a priority queue."""
@@ -125,9 +140,17 @@ class TestingQueue(TestingQueueBase):
                 self._downheap(big_child) # recur at position of small child
 
     # ------------------------------ public behaviors ------------------------------
-    def __init__(self):
+    def __init__(self,contents=()):
         """Create a new empty Priority Queue"""
-        self._data = []
+        #self._data = []
+        self._data = [self._Item(k, v) for k, v in contents]  # empty by default
+        if len(self._data) > 1:
+            self._heapify()
+
+    def _heapify(self):
+        start = self._parent(len(self) - 1)  # start at PARENT of last leaf
+        for j in range(start, -1, -1):  # going to and including the root
+            self._downheap(j)
 
     def __len__(self):
         """Return the number of items in the priority queue."""
