@@ -10,7 +10,7 @@ TestingQueue: A max heap containing the patient id sorted in order of next patie
 # Represent a node of doubly linked list
 class PatientRecord:
     def __init__(self, name, age, patient_id):
-        self.patient_id = patient_id
+        self.patient_id = str(patient_id) +str(age)
         self.name = name
         self.age = age
         self.left = None
@@ -57,7 +57,7 @@ class PatientList:
         print("Nodes of doubly linked list: ")
         while current is not None:
             # Prints each node by incrementing pointer.
-            print(current.name)
+            print(current.patient_id ,current.name, current.age)
             current = current.right
 
     def __len__(self):
@@ -215,4 +215,3 @@ class TestingQueue(TestingQueueBase):
 #
 # tstngQ.display_x(3)
 #
-

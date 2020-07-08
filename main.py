@@ -21,6 +21,12 @@ def read_patient_info():
             for data in patient_data:
                 name, age = data.split(",")
                 patient_utils.registerPatient(name=name.strip(), age=age.strip())
+             # for second file where next tag is found and x is fetched
+            #asuming x=2
+
+            for x in [0, 1]:
+                patient_utils.nextPatient()
+
 
         patient_utils.displayPatients()
     except Exception as e:
@@ -40,7 +46,7 @@ def sort_initial_queue():
 
 def run():
     read_patient_info()
-    sort_initial_queue()
+    #sort_initial_queue()
 
 
 if __name__ == "__main__":
