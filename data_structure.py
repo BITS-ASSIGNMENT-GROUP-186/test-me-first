@@ -64,16 +64,29 @@ class PatientList:
         current = self.head
         if not self.head:
             raise Exception("List is empty!!")
-            return
 
         count = 0
         while current is not None:
-            count+=1
+            count += 1
             current = current.right
         return count
 
     def getList(self):
         return list(self.current)
+
+    # display() will print out the nodes of the list
+    def getPatientName(self, patient_id):
+        # Node current will point to head
+        current = self.head
+        if not self.head:
+            print("List is empty")
+            return
+
+        while current is not None:
+            # Prints each node by incrementing pointer.
+            if current.patient_id == patient_id:
+                return current.name
+            current = current.right
 
 
 class TestingQueueBase:
@@ -99,7 +112,8 @@ class TestingQueue(TestingQueueBase):
     """
     A max-oriented priority queue implemented with a binary heap.
     """
-    #------------------------------ nonpublic behaviors ------------------------------#
+
+    """Non public behaviours"""
     def _parent(self, j):
         return (j - 1) // 2
 
@@ -110,10 +124,10 @@ class TestingQueue(TestingQueueBase):
         return 2*j + 2
 
     def _has_left(self, j):
-        return self._left(j) < len(self._data) # index beyond end of list?
+        return self._left(j) < len(self._data)  # index beyond end of list?
 
     def _has_right(self, j):
-        return self._right(j) < len(self._data) # index beyond end of list?
+        return self._right(j) < len(self._data)  # index beyond end of list?
 
     def _swap(self, i, j):
         """
@@ -125,42 +139,42 @@ class TestingQueue(TestingQueueBase):
         parent = self._parent(j)
         if j > 0 and self._data[j] > self._data[parent]:
             self._swap(j, parent)
-            self._upheap(parent) # recur at position of parent
+            self._upheap(parent)  # recur at position of parent
 
     def _downheap(self, j):
         if self._has_left(j):
             left = self._left(j)
-            big_child = left # although right may be bigger
+            big_child = left  # although right may be bigger
             if self._has_right(j):
                 right = self._right(j)
                 if self._data[right] > self._data[left]:
                     big_child = right
             if self._data[big_child] > self._data[j]:
                 self._swap(j, big_child)
-                self._downheap(big_child) # recur at position of small child
-
-    # ------------------------------ public behaviors ------------------------------
-    def __init__(self,contents=()):
-        """Create a new empty Priority Queue"""
-        #self._data = []
-        self._data = [self._Item(k, v) for k, v in contents]  # empty by default
-        if len(self._data) > 1:
-            self._heapify()
+                self._downheap(big_child)  # recur at position of small child
 
     def _heapify(self):
         start = self._parent(len(self) - 1)  # start at PARENT of last leaf
         for j in range(start, -1, -1):  # going to and including the root
             self._downheap(j)
 
+    # Public behaviours
+    def __init__(self):
+        """Create a new empty Priority Queue"""
+        self._data = []
+        # self._data = PatientList()
+        # # self._data = [self._Item(k, v) for k, v in contents]  # empty by default
+        # # if len(self._data) > 1:
+        # #     self._heapify()
+
     def __len__(self):
         """Return the number of items in the priority queue."""
         return len(self._data)
 
-    def add(self, key, value):
+    def add(self, patient_id):
         """Add a key-value pair to the priority queue"""
-        self._data.append(self._Item(key, value))
+        self._data.append(self._Item(patient_id % 100, patient_id))
         self._upheap(len(self._data) - 1)  # upheap newly added position
-
         #self._data.append(self._Item(str(key)[-2:], str(key) + ", " + value))
         #self._upheap(len(self._data) - 1)  # upheap newly added position
 
@@ -174,6 +188,35 @@ class TestingQueue(TestingQueueBase):
         item = self._data[0]
         return (item._value)
 
+    # sort
+    def sort(self):
+        n = len(self._data)
+        # # maxheap
+        # for i in range(n, -1, -1):
+        #     self._heapify(self._data, n, i)
+        # element extraction
+        for i in range(n - 1, 0, -1):
+            self._swap(i, 0)
+            self.heapify(i, 0)
+            # arr[i], arr[0] = arr[0], arr[i]  # swap
+            # heapify(arr, i, 0)
+
+    def heapify(self, n, i):
+        largest = i  # largest value
+        l = 2 * i + 1  # left
+        r = 2 * i + 2  # right
+        # if left child exists
+        if l < n and self._data[i] < self._data[l]:
+            largest = l
+        # if right child exits
+        if r < n and self._data[largest] < self._data[r]:
+            largest = r
+        # root
+        if largest != i:
+            self._data[i], self._data[largest] = self._data[largest], self._data[i]  # swap
+            # root.
+            self.heapify(n, largest)
+
     def remove_max(self):
         """
         Remove and return (k,v) tuple with maximum key.
@@ -186,13 +229,14 @@ class TestingQueue(TestingQueueBase):
         self._downheap(0)  # then fix new root
         return (item._key, item._value)
 
-    # def display(self):
-    #     """
-    #     Prints full testing queue
-    #     """
-    #     print("\nCurrently Patients in Queue:")
-    #     for i in self._data:
-    #         print(i._value)
+    def get_patients(self):
+        """
+        Prints full testing queue
+        """
+        print("\nCurrently Patients in Queue:")
+        return self._data
+        # for data in self._data:
+        #     print(data._value)
 
     # def display_x(self,count):
     #     """
