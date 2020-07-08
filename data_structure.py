@@ -135,11 +135,11 @@ class TestingQueue(TestingQueueBase):
 
     def add(self, key, value):
         """Add a key-value pair to the priority queue"""
-        # self._data.append(self._Item(key, value))
-        # self._upheap(len(self._data) - 1)  # upheap newly added position
-
-        self._data.append(self._Item(str(key)[-2:], str(key) + ", " + value))
+        self._data.append(self._Item(key, value))
         self._upheap(len(self._data) - 1)  # upheap newly added position
+
+        #self._data.append(self._Item(str(key)[-2:], str(key) + ", " + value))
+        #self._upheap(len(self._data) - 1)  # upheap newly added position
 
     def max(self):
         """
@@ -163,24 +163,24 @@ class TestingQueue(TestingQueueBase):
         self._downheap(0)  # then fix new root
         return (item._key, item._value)
 
-    def display(self):
-        """
-        Prints full testing queue
-        """
-        print("\nCurrently Patients in Queue:")
-        for i in self._data:
-            print(i._value)
+    # def display(self):
+    #     """
+    #     Prints full testing queue
+    #     """
+    #     print("\nCurrently Patients in Queue:")
+    #     for i in self._data:
+    #         print(i._value)
 
-    def display_x(self,count):
-        """
-        Prints 'x' number of patients in testing queue
-        """
-        print("\n---- next patient : " + str(count) + " ---------------")
-        i = 0
-        while i < count:
-            print("Next patient for testing is: " + self.max())
-            i += 1
-        print("----------------------------------------------")
+    # def display_x(self,count):
+    #     """
+    #     Prints 'x' number of patients in testing queue
+    #     """
+    #     print("\n---- next patient : " + str(count) + " ---------------")
+    #     i = 0
+    #     while i < count:
+    #         print("Next patient for testing is: " + self.max())
+    #         i += 1
+    #     print("----------------------------------------------")
 #
 # tstngQ = TestingQueue()
 # tstngQ.add(100455,"John")
