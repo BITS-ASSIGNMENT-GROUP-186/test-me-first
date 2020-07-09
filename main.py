@@ -6,48 +6,12 @@ files
 import os
 from utils import PatientUtils,TestingQueue
 
-
-def read_patient_info():
-    """
-    Method to read the input file and register the patients
-    :return: None
-    """
-    try:
-        file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6a.txt'))
-        patient_utils = PatientUtils()
-
-        with open(file_path, 'r') as file:
-            patient_data = file.read().splitlines()
-            for data in patient_data:
-                name, age = data.split(",")
-                patient_utils.registerPatient(name=name.strip(), age=age.strip())
-             # for second file where next tag is found and x is fetched
-            #asuming x=2
-
-            for x in [0, 1]:
-                patient_utils.nextPatient()
-
-
-        patient_utils.displayPatients()
-    except Exception as e:
-        raise e
-
-
-def sort_initial_queue():
-    """
-    Method to sort values in the queue according to age
-    :return: None
-    """
-    try:
-        testing_queue = TestingQueue()
-
-    except Exception as e:
-        raise e
-
 def run():
-    read_patient_info()
-    #sort_initial_queue()
-
+    patient_utils = PatientUtils()
+    file_path1 = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6a.txt'))
+    patient_utils.read_patient_info(str(file_path1))
+    file_path2 = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6b.txt'))
+    patient_utils.read_patient_info(file_path2)
 
 if __name__ == "__main__":
     run()

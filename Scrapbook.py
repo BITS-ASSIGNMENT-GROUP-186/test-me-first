@@ -14,7 +14,10 @@ class MaxHeap:
     # parent for the node currently
     # at pos
     def parent(self, pos):
-        return pos // 2
+        if (pos == 1):
+            return 0
+        else:
+         return pos // 2
 
     # Function to return the position of
     # the left child for the node currently
@@ -47,12 +50,12 @@ class MaxHeap:
         # If the node is a non-leaf node and smaller
         # than any of its child
         if not self.isLeaf(pos):
-            if (self.Heap[pos] < self.Heap[self.leftChild(pos)] or
-                    self.Heap[pos] < self.Heap[self.rightChild(pos)]):
+            if ((self.Heap[pos])%100 < (self.Heap[self.leftChild(pos)])%100 or
+                    (self.Heap[pos])%100 < (self.Heap[self.rightChild(pos)])%100):
 
                 # Swap with the left child and heapify
                 # the left child
-                if self.Heap[self.leftChild(pos)] > self.Heap[self.rightChild(pos)]:
+                if (self.Heap[self.leftChild(pos)])%100 > (self.Heap[self.rightChild(pos)])%100:
                     self.swap(pos, self.leftChild(pos))
                     self.maxHeapify(self.leftChild(pos))
 
@@ -71,10 +74,7 @@ class MaxHeap:
         self.Heap[self.size] = element
 
         current = self.size
-
-        while self.Heap[current] > self.Heap[self.parent(current)]:
-            self.swap(current, self.parent(current))
-            current = self.parent(current)
+        self.maxHeapify(current)
 
             # Function to print the contents of the heap
 
@@ -83,20 +83,23 @@ class MaxHeap:
             print(" PARENT : " + str(self.Heap[i]) + " LEFT CHILD : " +
                   str(self.Heap[2 * i]) + " RIGHT CHILD : " +
                   str(self.Heap[2 * i + 1]))
-
-            # Function to remove and return the maximum
-
-    # element from the heap
     def extractMax(self):
+        return self.Heap[self.FRONT]
+
+    def dequeMax(self):
+        #popped = self.Heap[self.FRONT]
+        self.Heap[self.FRONT] = self.Heap[self.size]
+        self.size -= 1
+        self.maxHeapify(self.FRONT)
+        #return popped
+
+    def extractMax_List(self):
 
         popped = self.Heap[self.FRONT]
         self.Heap[self.FRONT] = self.Heap[self.size]
         self.size -= 1
         self.maxHeapify(self.FRONT)
         return popped
-
-    # Driver Code
-
 
 if __name__ == "__main__":
     print('The maxHeap is ')

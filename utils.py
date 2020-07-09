@@ -10,50 +10,105 @@ class PatientUtils:
         self.id_count = 1001
         self.patient_list = PatientList()
         self.testingQueue = TestingQueue()
-        self.sortedQueue= MaxHeap(10)
+        self.sortedQueue= MaxHeap(20)
+
 
     def registerPatient(self, name, age):
         try:
             patient_id = f"{self.id_count}{age}"
             self.patient_list.add(name=name, age=age, patient_id=patient_id)
-            self.id_count += 1
-            # Refreshing queue
             self.enqueuePatient(patient_id)
+            self.id_count += 1
+            #self.sortedQueue.Print()
+        except Exception as e:
+            raise e
 
+
+    def enqueuePatient(self, PatId):
+        self.sortedQueue.insert(int(PatId))
+
+    def nextPatient(self):
+        patid= self.sortedQueue.extractMax()
+        print(self.patient_list.getPatientDetails(str(patid)))
+        self._dequeuePatient(patid)
+
+    def _dequeuePatient(self, PatId):
+        self.sortedQueue.dequeMax()
+
+    def DisplaySortedPatientRecord(self):
+        n=self.sortedQueue.size
+        arr = [None] * n
+        for i in range(0, n):
+            arr[i] = self.sortedQueue.Heap[i+1]
+            #print (arr[i])
+
+        for i in range(0, n):
+            maxe = arr[i]%100
+            for j in range(i+1, n):
+                if (arr[j]%100 > maxe):
+                    temp=arr[i]
+                    arr[i]=arr[j]
+                    arr[j]=temp
+                    maxe=arr[i]%100
+
+        for i in range(0, n):
+            print(self.patient_list.getPatientDetails(str(arr[i])))
+
+    def read_patient_info(self,file_path):
+        try:
+            flag=0
+            #file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', ))
+            with open(file_path, 'r') as file:
+                patient_data = file.read().splitlines()
+                #print(patient_data)
+                for data in patient_data:
+                    if "newPatient:" in data:
+                        temp, new_data = data.split(":")
+                        print("---- new patient entered---------------")
+                        print("Refreshed queue:")
+                        #print(new_data)
+                        name, age = new_data.split(",")
+                        # Add patients to Patient Record List
+                        self.registerPatient(name=name.strip(), age=age.strip())
+                        self.DisplaySortedPatientRecord()
+                    elif "nextPatient:" in data:
+                        temp, x = data.split(":")
+                        #print(x)
+
+                        print("---- next patient: "+ x +" ---------------")
+                        x = int(x)
+                        while x > 0:
+                            self.nextPatient()
+                            x-=1
+                    else :
+                        flag+=1
+                        name, age = data.split(",")
+                        # Add patients to Patient Record List
+                        self.registerPatient(name=name.strip(), age=age.strip())
+
+                if flag>0 :
+                    print("---- initial queue ---------------")
+                    print("No of patients added: "+ str(flag))
+                    print("Refreshed queue:")
+                    #print(self.sortedQueue.size)
+                    self.DisplaySortedPatientRecord()
+                    flag-=1
+                    #self.patient_list.display()
 
         except Exception as e:
             raise e
 
-    def displayPatients(self):
-        self.patient_list.display()
-        self.sortedQueue.Print()
-
-    def enqueuePatient(self, PatId):
-        self.sortedQueue.insert(int(PatId)%100)
-        #self.testingQueue.add(str(PatId)[-2:],str(PatId))
-        # Heap method to be used here is  - add(self, key, value)
-        # Split patient id to get age and assign age to key and patientID to value
-
-        # Need to check whether only the call to add() method is sufficient or
-        # full functionality needs to be coded
-        pass
-
-    def nextPatient(self):
-        Delete_Patient=self.sortedQueue.extractMax()
-        print(Delete_Patient)
-        self._dequeuePatient(Delete_Patient)
-        #need to write these records in output file now
-
-        #Heap method to use here is - remove_max(self)
-        #It will output the patient id with highest priority and remove it from the heap
-        #Alternate method if you dont want to remove from heap is - max(self)
-
-        # Also  calls _dequeuePatient function below
-
-
-    def _dequeuePatient(self, PatId):
-        print("Pending Code to delete from queue/list??")
-        # To be called from nextPatient() function
-        pass
-    def SearchList(self,PatID):
-        print("value in heap and list need to be linked so that we can print the complete records and not just the age/patientid")
+    def outputRegisteredPatientInfo(self):
+        try:
+            file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'output', 'outputPS6.txt'))
+            patients_in_queue = self.testing_queue.get_patients()
+            with open(file_path, 'w') as file:
+                file.write("-----------------Initial Queue-----------------\n")
+                file.write(f"No of patients added: {len(patients_in_queue)}\n")
+                file.write("Refreshed queue:\n")
+                for patient in patients_in_queue[::-1]:
+                    patient_id = patient._value
+                    file.write(f"{patient_id}, {self.patient_list.getPatientName(str(patient_id))}\n")
+                file.write("------------------------------------------------")
+        except Exception as e:
+            raise e
