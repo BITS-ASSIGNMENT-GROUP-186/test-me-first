@@ -89,6 +89,20 @@ class PatientList:
             current = current.right
 
 
+    def getPatientAge(self, patient_id):
+        # Node current will point to head
+        current = self.head
+        if not self.head:
+            print("List is empty")
+            return
+
+        while current is not None:
+            # Prints each node by incrementing pointer.
+            if current.patient_id == patient_id:
+                return current.name
+            current = current.right
+
+
 class TestingQueueBase:
     """Abstract base class for a priority queue."""
 
@@ -135,11 +149,11 @@ class TestingQueue(TestingQueueBase):
         """
         self._data[i], self._data[j] = self._data[j], self._data[i]
 
-    def _upheap(self, j):
-        parent = self._parent(j)
-        if j > 0 and self._data[j] > self._data[parent]:
-            self._swap(j, parent)
-            self._upheap(parent)  # recur at position of parent
+    # def _upheap(self, j):
+    #     parent = self._parent(j)
+    #     if j > 0 and self._data[j] > self._data[parent]:
+    #         self._swap(j, parent)
+    #         self._upheap(parent)  # recur at position of parent
 
     def _downheap(self, j):
         if self._has_left(j):
@@ -174,9 +188,7 @@ class TestingQueue(TestingQueueBase):
     def add(self, patient_id):
         """Add a key-value pair to the priority queue"""
         self._data.append(self._Item(patient_id % 100, patient_id))
-        self._upheap(len(self._data) - 1)  # upheap newly added position
-        #self._data.append(self._Item(str(key)[-2:], str(key) + ", " + value))
-        #self._upheap(len(self._data) - 1)  # upheap newly added position
+        self._heapify()
 
     def max(self):
         """
@@ -185,7 +197,7 @@ class TestingQueue(TestingQueueBase):
         """
         if self. is_empty():
             raise Exception("Priority Queue/Heap is empty. Please fill some values and try again!!!")
-        item = self._data[0]
+        item = self._data[-1]
         return (item._value)
 
     # sort
@@ -224,39 +236,24 @@ class TestingQueue(TestingQueueBase):
         """
         if self. is_empty():
             raise Exception("Priority Queue/Heap is empty. Please fill some values and try again!!!")
-        self._swap(0, len(self._data) - 1)  # put maximum item at the end
-        item = self._data.pop(-1)  # and remove it from the list;
-        self._downheap(0)  # then fix new root
-        return (item._key, item._value)
+        #self._swap(0, len(self._data) - 1)  # put maximum item at the end
+        item = self._data.pop()  # and remove it from the list;
+        #self._downheap(0)  # then fix new root
+        return (item._key,item._value)
 
     def get_patients(self):
         """
         Prints full testing queue
         """
-        print("\nCurrently Patients in Queue:")
         return self._data
         # for data in self._data:
         #     print(data._value)
 
-    # def display_x(self,count):
-    #     """
-    #     Prints 'x' number of patients in testing queue
-    #     """
-    #     print("\n---- next patient : " + str(count) + " ---------------")
-    #     i = 0
-    #     while i < count:
-    #         print("Next patient for testing is: " + self.max())
-    #         i += 1
-    #     print("----------------------------------------------")
-#
-# tstngQ = TestingQueue()
-# tstngQ.add(100455,"John")
-# tstngQ.add(100160,"Surya")    #equivalent to enqueuePatient(self, PatId)
-# tstngQ.add(100357,"Rishi")
-# tstngQ.add(100254,"Ajay")
-#
-# tstngQ.display()
-#
-# tstngQ.display_x(3)
-#
+    def display(self):
+        """
+        Prints full testing queue
+        """
+        print("\nCurrently Patients in Queue:")
+        for i in self._data[::-1]:
+            print(str(i._value) + " " + str(i._key))
 

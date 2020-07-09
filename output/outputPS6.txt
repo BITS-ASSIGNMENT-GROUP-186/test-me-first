@@ -1,0 +1,10 @@
+-----------------Initial Queue-----------------
+No of patients added: 6
+Refreshed queue:
+100160, Surya
+100660, Vivek
+100558, Anil
+100357, Rishi
+100254, Ajay
+100426, Kunal
+------------------------------------------------
