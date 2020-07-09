@@ -1,10 +1,90 @@
------------------Initial Queue-----------------
-No of patients added: 6
+-----------------registerPatient-----------------
+No of patients added: 7
 Refreshed queue:
 100160, Surya
 100660, Vivek
 100558, Anil
 100357, Rishi
 100254, Ajay
+100726, Danush
 100426, Kunal
+------------------------------------------------
+
+-----------------new patient entered-----------------
+Patient details:  John,  55, 100855
+Refreshed queue:
+100660, Vivek
+100160, Surya
+100558, Anil
+100357, Rishi
+100855, John
+100254, Ajay
+100726, Danush
+100426, Kunal
+------------------------------------------------
+
+---- next patient : 1 ---------------
+Next patient for testing is: 100660, Vivek
+---------------------------------------------------
+
+
+-----------------new patient entered-----------------
+Patient details:  Pradeep,  45, 100945
+Refreshed queue:
+100160, Surya
+100558, Anil
+100357, Rishi
+100855, John
+100254, Ajay
+100945, Pradeep
+100726, Danush
+100426, Kunal
+------------------------------------------------
+
+---- next patient : 2 ---------------
+Next patient for testing is: 100160, Surya
+Next patient for testing is: 100558, Anil
+---------------------------------------------------
+
+
+---- next patient : 1 ---------------
+Next patient for testing is: 100357, Rishi
+---------------------------------------------------
+
+
+-----------------new patient entered-----------------
+Patient details:  Sandeep,  70, 101070
+Refreshed queue:
+101070, Sandeep
+100855, John
+100254, Ajay
+100945, Pradeep
+100426, Kunal
+100726, Danush
+------------------------------------------------
+
+---- next patient : 3 ---------------
+Next patient for testing is: 101070, Sandeep
+Next patient for testing is: 100855, John
+Next patient for testing is: 100254, Ajay
+---------------------------------------------------
+
+
+-----------------new patient entered-----------------
+Patient details:  Ram,  85, 101185
+Refreshed queue:
+101185, Ram
+100945, Pradeep
+100426, Kunal
+100726, Danush
+------------------------------------------------
+
+-----------------new patient entered-----------------
+Patient details:  Sham,  15, 101215
+Refreshed queue:
+101185, Ram
+100945, Pradeep
+100426, Kunal
+100726, Danush
+101215, Sham
 ------------------------------------------------
