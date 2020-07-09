@@ -71,10 +71,6 @@ class PatientList:
             current = current.right
         return count
 
-    def getList(self):
-        return list(self.current)
-
-    # display() will print out the nodes of the list
     def getPatientName(self, patient_id):
         # Node current will point to head
         current = self.head
@@ -88,7 +84,6 @@ class PatientList:
                 return current.name
             current = current.right
 
-
     def getPatientAge(self, patient_id):
         # Node current will point to head
         current = self.head
@@ -99,7 +94,7 @@ class PatientList:
         while current is not None:
             # Prints each node by incrementing pointer.
             if current.patient_id == patient_id:
-                return current.name
+                return current.age
             current = current.right
 
 
@@ -168,7 +163,7 @@ class TestingQueue(TestingQueueBase):
                 self._downheap(big_child)  # recur at position of small child
 
     def _heapify(self):
-        start = self._parent(len(self) - 1)  # start at PARENT of last leaf
+        start = self._parent(len(self._data) - 1)  # start at PARENT of last leaf
         for j in range(start, -1, -1):  # going to and including the root
             self._downheap(j)
 
@@ -176,10 +171,6 @@ class TestingQueue(TestingQueueBase):
     def __init__(self):
         """Create a new empty Priority Queue"""
         self._data = []
-        # self._data = PatientList()
-        # # self._data = [self._Item(k, v) for k, v in contents]  # empty by default
-        # # if len(self._data) > 1:
-        # #     self._heapify()
 
     def __len__(self):
         """Return the number of items in the priority queue."""
@@ -203,30 +194,26 @@ class TestingQueue(TestingQueueBase):
     # sort
     def sort(self):
         n = len(self._data)
-        # # maxheap
-        # for i in range(n, -1, -1):
-        #     self._heapify(self._data, n, i)
-        # element extraction
         for i in range(n - 1, 0, -1):
             self._swap(i, 0)
             self.heapify(i, 0)
-            # arr[i], arr[0] = arr[0], arr[i]  # swap
-            # heapify(arr, i, 0)
 
     def heapify(self, n, i):
         largest = i  # largest value
-        l = 2 * i + 1  # left
-        r = 2 * i + 2  # right
+        left_child = self._left(i)
+        right_child = self._right(i)
+
         # if left child exists
-        if l < n and self._data[i] < self._data[l]:
-            largest = l
+        if left_child < n and self._data[i] < self._data[left_child]:
+            largest = left_child
+
         # if right child exits
-        if r < n and self._data[largest] < self._data[r]:
-            largest = r
+        if right_child < n and self._data[largest] < self._data[right_child]:
+            largest = right_child
+
         # root
         if largest != i:
-            self._data[i], self._data[largest] = self._data[largest], self._data[i]  # swap
-            # root.
+            self._swap(i, largest)
             self.heapify(n, largest)
 
     def remove_max(self):
@@ -234,26 +221,13 @@ class TestingQueue(TestingQueueBase):
         Remove and return (k,v) tuple with maximum key.
         Raise exception if empty.
         """
-        if self. is_empty():
+        if self.is_empty():
             raise Exception("Priority Queue/Heap is empty. Please fill some values and try again!!!")
-        #self._swap(0, len(self._data) - 1)  # put maximum item at the end
         item = self._data.pop()  # and remove it from the list;
-        #self._downheap(0)  # then fix new root
-        return (item._key,item._value)
+        return (item._key, item._value)
 
     def get_patients(self):
         """
         Prints full testing queue
         """
         return self._data
-        # for data in self._data:
-        #     print(data._value)
-
-    def display(self):
-        """
-        Prints full testing queue
-        """
-        print("\nCurrently Patients in Queue:")
-        for i in self._data[::-1]:
-            print(str(i._value) + " " + str(i._key))
-

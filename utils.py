@@ -8,7 +8,6 @@ import os
 class PatientUtils:
     def __init__(self):
         self.id_count = 1001
-        self.patient_data = None
         self.patient_list = PatientList()
         self.testing_queue = TestingQueue()
         self.file_path_output = os.path.abspath(os.path.join(os.path.dirname(__file__), 'output', 'outputPS6.txt'))
@@ -36,8 +35,8 @@ class PatientUtils:
             patient_id = f"{self.id_count}{age}"
             self.patient_list.add(name=name, age=age, patient_id=patient_id)
             self.id_count += 1
-            # Enqueuing the patients in the heap
-            self.enqueuePatient(PatId=int(patient_id))
+            # Enqueuing patients in the heap
+            self.enqueuePatient(patient_id=int(patient_id))
             return patient_id
         except Exception as e:
             raise e
@@ -47,11 +46,11 @@ class PatientUtils:
             patients_in_queue = self.testing_queue.get_patients()
             self.file_output.write("-----------------registerPatient-----------------\n")
             self.file_output.write(f"No of patients added: {len(patients_in_queue)}\n")
-            self.printFullQueue()
+            self.printFullQueue(patients_in_queue)
         except Exception as e:
             raise e
 
-    def outputNewPatientRecords(self, patient_id, name, age):
+    def outputNewPatientRecords(self, name, age, patient_id):
         try:
             self.file_output.write("\n\n")
             self.file_output.write("-----------------new patient entered-----------------\n")
@@ -60,9 +59,9 @@ class PatientUtils:
         except Exception as e:
             raise e
 
-    def printFullQueue(self):
+    def printFullQueue(self, patients_in_queue=None):
         try:
-            patients_in_queue = self.testing_queue.get_patients()
+            patients_in_queue = patients_in_queue if patients_in_queue else self.testing_queue.get_patients()
             self.file_output.write("Refreshed queue:\n")
             for patient in patients_in_queue[::-1]:
                 patient_id = patient._value
@@ -75,24 +74,23 @@ class PatientUtils:
         try:
             file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6b.txt'))
             with open(file_path, 'r') as file:
-                inputs = file.read().splitlines()
-
-                for line in inputs:
-                    operation, parameters = line.split(":")
+                patient_data = file.read().splitlines()
+                for data in patient_data:
+                    operation, parameters = data.split(":")
                     if operation == "newPatient":
                         name, age = parameters.split(",")
                         patient_id = self.registerPatient(name=name.strip(), age=age.strip())
                         self.testing_queue.sort()
-                        self.outputNewPatientRecords(patient_id, name, age)
+                        self.outputNewPatientRecords(name=name, age=age, patient_id=patient_id)
                     elif operation == "nextPatient":
                         num_of_patients = parameters.strip()
                         self.nextPatient(num_of_patients)
         except Exception as e:
             raise e
 
-    def enqueuePatient(self, PatId):
+    def enqueuePatient(self, patient_id):
         try:
-            self.testing_queue.add(patient_id=int(PatId))
+            self.testing_queue.add(patient_id=int(patient_id))
         except Exception as e:
             raise e
 
@@ -105,10 +103,10 @@ class PatientUtils:
         self.file_output.write(f"---- next patient : {num_of_patients} ---------------\n")
         for i in range(int(num_of_patients)):
             max_patient_id = self.testing_queue.max()
-            self._dequeuePatient(max_patient_id)
+            # Dequeue patient who has completed testing
+            self.dequeuePatient()
             self.file_output.write(f"Next patient for testing is: {max_patient_id}, {self.patient_list.getPatientName(str(max_patient_id))}\n")
         self.file_output.write("---------------------------------------------------\n")
 
-    def _dequeuePatient(self, PatId):
-        # To be called from nextPatient() function
+    def dequeuePatient(self):
         return self.testing_queue.remove_max()
