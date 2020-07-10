@@ -2,11 +2,11 @@
 This module is the entry point of the application and contains method to run and read patient information from the input
 files
 """
-
 import os
-from utils import PatientUtils,TestingQueue
+from utils import PatientUtils
 
 def run():
+    #better to take user inputs and validate
     patient_utils = PatientUtils()
     file_path1 = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6a.txt'))
     patient_utils.read_patient_info(str(file_path1))

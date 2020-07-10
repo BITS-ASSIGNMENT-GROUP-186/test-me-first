@@ -1,7 +1,7 @@
 """
 This module has reusable functions used throughout the application to support all the processes
 """
-from data_structure import PatientList,TestingQueue
+from data_structure import PatientList
 from Scrapbook import MaxHeap
 import os
 
@@ -9,9 +9,7 @@ class PatientUtils:
     def __init__(self):
         self.id_count = 1001
         self.patient_list = PatientList()
-        self.testingQueue = TestingQueue()
-        self.sortedQueue= MaxHeap(20)
-
+        self.testingQueue = MaxHeap(20)
 
     def registerPatient(self, name, age):
         try:
@@ -19,27 +17,27 @@ class PatientUtils:
             self.patient_list.add(name=name, age=age, patient_id=patient_id)
             self.enqueuePatient(patient_id)
             self.id_count += 1
-            #self.sortedQueue.Print()
+            #self.testingQueue.Print()
         except Exception as e:
             raise e
 
 
     def enqueuePatient(self, PatId):
-        self.sortedQueue.insert(int(PatId))
+        self.testingQueue.test_insert(int(PatId))
 
     def nextPatient(self):
-        patid= self.sortedQueue.extractMax()
+        patid= self.testingQueue.extractMax()
         print(self.patient_list.getPatientDetails(str(patid)))
         self._dequeuePatient(patid)
 
     def _dequeuePatient(self, PatId):
-        self.sortedQueue.dequeMax()
+        self.testingQueue.test_dequeMax()
 
     def DisplaySortedPatientRecord(self):
-        n=self.sortedQueue.size
+        n=self.testingQueue.size
         arr = [None] * n
         for i in range(0, n):
-            arr[i] = self.sortedQueue.Heap[i+1]
+            arr[i] = self.testingQueue.Heap[i+1]
             #print (arr[i])
 
         for i in range(0, n):
@@ -90,7 +88,7 @@ class PatientUtils:
                     print("---- initial queue ---------------")
                     print("No of patients added: "+ str(flag))
                     print("Refreshed queue:")
-                    #print(self.sortedQueue.size)
+                    #print(self.testingQueue.size)
                     self.DisplaySortedPatientRecord()
                     flag-=1
                     #self.patient_list.display()

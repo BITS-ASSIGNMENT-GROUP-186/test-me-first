@@ -1,118 +1,101 @@
 import sys
-
-
 class MaxHeap:
-
     def __init__(self, maxsize):
         self.maxsize = maxsize
         self.size = 0
         self.Heap = [0] * (self.maxsize + 1)
-        self.Heap[0] = sys.maxsize
+        self.Heap[0] = 0
         self.FRONT = 1
-
-    # Function to return the position of
-    # parent for the node currently
-    # at pos
-    def parent(self, pos):
-        if (pos == 1):
-            return 0
-        else:
-         return pos // 2
-
-    # Function to return the position of
-    # the left child for the node currently
-    # at pos
-    def leftChild(self, pos):
-        return 2 * pos
-
-        # Function to return the position of
-
-    # the right child for the node currently
-    # at pos
-    def rightChild(self, pos):
-        return (2 * pos) + 1
-
-    # Function that returns true if the passed
-    # node is a leaf node
-    def isLeaf(self, pos):
-        if pos >= (self.size // 2) and pos <= self.size:
-            return True
-        return False
 
     # Function to swap two nodes of the heap
     def swap(self, fpos, spos):
-        self.Heap[fpos], self.Heap[spos] = self.Heap[spos], self.Heap[fpos]
+        temp=self.Heap[fpos]
+        self.Heap[fpos]=self.Heap[spos]
+        self.Heap[spos] = temp
 
-        # Function to heapify the node at pos
-
-    def maxHeapify(self, pos):
-
-        # If the node is a non-leaf node and smaller
-        # than any of its child
-        if not self.isLeaf(pos):
-            if ((self.Heap[pos])%100 < (self.Heap[self.leftChild(pos)])%100 or
-                    (self.Heap[pos])%100 < (self.Heap[self.rightChild(pos)])%100):
-
-                # Swap with the left child and heapify
-                # the left child
-                if (self.Heap[self.leftChild(pos)])%100 > (self.Heap[self.rightChild(pos)])%100:
-                    self.swap(pos, self.leftChild(pos))
-                    self.maxHeapify(self.leftChild(pos))
-
-                    # Swap with the right child and heapify
-                # the right child
-                else:
-                    self.swap(pos, self.rightChild(pos))
-                    self.maxHeapify(self.rightChild(pos))
-
-                    # Function to insert a node into the heap
-
-    def insert(self, element):
-        if self.size >= self.maxsize:
-            return
-        self.size += 1
-        self.Heap[self.size] = element
-
-        current = self.size
-        self.maxHeapify(current)
-
-            # Function to print the contents of the heap
+     # Function to print the contents of the heap
 
     def Print(self):
+        #print(self.size)
         for i in range(1, (self.size // 2) + 1):
             print(" PARENT : " + str(self.Heap[i]) + " LEFT CHILD : " +
                   str(self.Heap[2 * i]) + " RIGHT CHILD : " +
                   str(self.Heap[2 * i + 1]))
+
     def extractMax(self):
-        return self.Heap[self.FRONT]
+        if self.size>0 :
+            return self.Heap[self.FRONT]
 
-    def dequeMax(self):
-        #popped = self.Heap[self.FRONT]
+    def test_dequeMax(self):
+        #print(str(self.Heap[self.FRONT]) + " exchanged with " + str(self.size) + " ie :" + str(self.Heap[self.size]))
         self.Heap[self.FRONT] = self.Heap[self.size]
         self.size -= 1
-        self.maxHeapify(self.FRONT)
-        #return popped
+        self.test_downheap(1)
+        self.FRONT=1
 
-    def extractMax_List(self):
+    def test_upheap(self, i):
+        i = int(i)
+        parent = int(i / 2)
+        # print(str(parent)+"is parent of"+str(self.Heap[i]))
+        largest = self.Heap[i] % 100
+        if (parent) > 0:
+            if (i % 2 == 0):  # it is a left node
+                if largest > (self.Heap[parent]) % 100:  # compare with parent
+                    self.swap(i, parent)  # swap with parent if its bigger than parent
+            else:
+                if largest > (self.Heap[parent]) % 100:  # compare with parent
+                    if largest > (self.Heap[i - 1]) % 100:  # compare with left sibling
+                        self.swap(i, parent)  # swap with parent if its bigger than parent and left sibling
+                    else:
+                        self.swap(i - 1, parent)  # swap parent with left sibling
+            self.test_upheap(parent)
 
-        popped = self.Heap[self.FRONT]
-        self.Heap[self.FRONT] = self.Heap[self.size]
-        self.size -= 1
-        self.maxHeapify(self.FRONT)
-        return popped
+    def test_downheap(self, i):
+        FlagL=0
+        FlagR=0
+        largest = self.Heap[i] % 100
+        n=self.size
+        Left=i*2
+        Right=Left+1
+        if Left<=n: #Left exists
+            FlagL=1
+        if Right<=n: #right exists
+            FlagR=1
+        if FlagL==1:
+            if largest < (self.Heap[Left]) % 100:  # compare with left child
+                if FlagR==1:
+                    if ((self.Heap[Left]) % 100)<((self.Heap[Right]) % 100):
+                        self.swap(Right, i)  # swap right with parent if its bigger than both parent and left
+                        self.test_downheap(Right)
+                    else:
+                        self.swap(Left, i)  # swap left with parent if its bigger than both parent and right
+                        self.test_downheap(Left)
+                else:
+                    self.swap(Left, i)  # swap left with parent if its bigger than parent and right doesnt exist
+                    self.test_downheap(Left)
+
+    def test_insert(self, element):
+        self.size += 1
+        n=self.size
+        self.Heap[n] = element
+        #print("Inserted "+ str(n) + " : " +str(self.Heap[n]))
+        if (n>1):
+            self.test_upheap(n)
+        #self.Print()
+
 
 if __name__ == "__main__":
-    print('The maxHeap is ')
-    minHeap = MaxHeap(15)
-    minHeap.insert(105)
-    minHeap.insert(123)
-    minHeap.insert(117)
-    minHeap.insert(10)
-    minHeap.insert(84)
-    minHeap.insert(19)
-    minHeap.insert(6)
-    minHeap.insert(22)
-    minHeap.insert(9)
+    minHeap=MaxHeap(20)
 
+    minHeap.test_insert(105)
+    minHeap.test_insert(123)
+    minHeap.test_insert(175)
+    minHeap.test_insert(193)
+    minHeap.test_insert(278)
+
+    print('The maxHeap is of size:'+str(minHeap.size))
+    minHeap.Print()
+    print("The Max val is " + str(minHeap.extractMax()))
+    minHeap.test_dequeMax()
     minHeap.Print()
     print("The Max val is " + str(minHeap.extractMax()))
