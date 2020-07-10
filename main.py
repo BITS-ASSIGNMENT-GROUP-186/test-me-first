@@ -3,9 +3,10 @@ This module is the entry point of the application and contains method to run and
 files
 """
 
-from utils import PatientUtils
+from utils import PatientUtils, Decorators
 
 
+@Decorators.timer
 def run():
     try:
         patient_utils = PatientUtils()

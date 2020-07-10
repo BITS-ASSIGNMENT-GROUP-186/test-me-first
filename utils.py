@@ -2,7 +2,25 @@
 This module has reusable functions used throughout the application to support all the processes
 """
 from data_structure import PatientList, TestingQueue
+import functools
+import time
 import os
+
+
+class Decorators:
+    @staticmethod
+    def timer(func):
+        """Print the runtime of the decorated function"""
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            start_time = time.perf_counter()
+            value = func(*args, **kwargs)
+            end_time = time.perf_counter()
+            run_time = end_time - start_time
+            print(f"Finished {func.__name__!r} in {run_time:.4f} secs")
+            return value
+        return wrapper
 
 
 class PatientUtils:
@@ -70,6 +88,7 @@ class PatientUtils:
         except Exception as e:
             raise e
 
+    @Decorators.timer
     def servicePatients(self):
         try:
             file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6b.txt'))
