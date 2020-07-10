@@ -5,4 +5,5 @@ nextPatient: 2
 nextPatient: 1
 newPatient: Sandeep, 60
 newPatient: Test, 60
+wer
 nextPatient: 4

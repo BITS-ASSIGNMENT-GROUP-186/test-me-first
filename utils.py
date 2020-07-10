@@ -1,8 +1,8 @@
 """
 This module has reusable functions used throughout the application to support all the processes
 """
-from data_structure import PatientList
-from Scrapbook import MaxHeap
+from data_structure import PatientList,MaxHeap
+#from Scrapbook import MaxHeap
 import os
 
 class PatientUtils:
@@ -20,9 +20,13 @@ class PatientUtils:
         except Exception as e:
             raise e
 
-
     def enqueuePatient(self, PatId):
         self.testingQueue.test_insert(int(PatId))
+
+    def SortQueue(self):
+        n=self.testingQueue.size
+        if (n>1):
+            self.testingQueue.test_upheap(n)
 
     def nextPatient(self):
         patid= self.testingQueue.extractMax()
@@ -56,36 +60,42 @@ class PatientUtils:
             if PatientRecord:
                 self.file_output.write(PatientRecord[0]+" "+PatientRecord[1]+" "+PatientRecord[2]+"\n")
 
-    def read_patient_info(self,file_path):
+    def read_patient_info(self,file_path,Filetype):
         try:
             flag=0
             with open(file_path, 'r') as file:
-                patient_data = file.read().splitlines()
-                for data in patient_data:
-                    if "newPatient:" in data:
-                        temp, new_data = data.split(":")
-                        self.write_file(1,0)
-                        name, age = new_data.split(",")
-                        # Add patients to Patient Record List
-                        self.registerPatient(name=name.strip(), age=age.strip())
-                        self.WriteSortedPatientRecord()
-                    elif "nextPatient:" in data:
-                        temp, x = data.split(":")
-                        self.write_file(2,x)
-                        x = int(x)
-                        while x > 0:
-                            self.nextPatient()
-                            x-=1
-                    else :
-                        flag+=1
+                if str(Filetype)=="Type2":
+                    patient_data = file.read().splitlines()
+                    for data in patient_data:
+                        if "newPatient:" in data:
+                            temp, new_data = data.split(":")
+                            self.write_file(1,0)
+                            name, age = new_data.split(",")
+                            # Add patients to Patient Record List
+                            self.registerPatient(name=name.strip(), age=age.strip())
+                            #self.enqueuePatient(patient_id)
+                            self.SortQueue()
+                            self.WriteSortedPatientRecord()
+                        elif "nextPatient:" in data:
+                            temp, x = data.split(":")
+                            self.write_file(2,x)
+                            x = int(x)
+                            while x > 0:
+                                self.nextPatient()
+                                x-=1
+                        else:
+                            self.file_output.write("____________Invalid input_________\n")
+                elif str(Filetype)=="Type1":
+                    patient_data = file.read().splitlines()
+                    for data in patient_data:
                         name, age = data.split(",")
                         # Add patients to Patient Record List
                         self.registerPatient(name=name.strip(), age=age.strip())
-
-                if flag>0 :
+                        #self.enqueuePatient(patient_id)
+                        flag+=1
+                    self.SortQueue()
                     self.write_file(0,flag)
                     self.WriteSortedPatientRecord()
-
         except Exception as e:
             raise e
     def init_outputfile(self,file_path):

@@ -1,7 +1,7 @@
 import sys
 class MaxHeap:
-    def __init__(self, maxsize):
-        self.maxsize = maxsize
+    def __init__(self, maxsize1):
+        self.maxsize = maxsize1
         self.size = 0
         self.Heap = [0] * (self.maxsize + 1)
         self.Heap[0] = 0
@@ -79,8 +79,8 @@ class MaxHeap:
         n=self.size
         self.Heap[n] = element
         #print("Inserted "+ str(n) + " : " +str(self.Heap[n]))
-        if (n>1):
-            self.test_upheap(n)
+        #if (n>1):
+            #self.test_upheap(n)
         #self.Print()
 
 

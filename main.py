@@ -13,10 +13,10 @@ def run():
     patient_utils.init_outputfile(file_path_output)
 
     file_path1 = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6a.txt'))
-    patient_utils.read_patient_info(str(file_path1))
+    patient_utils.read_patient_info(file_path1,"Type1")
 
     file_path2 = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6b.txt'))
-    patient_utils.read_patient_info(file_path2)
+    patient_utils.read_patient_info(file_path2,"Type2")
 
 if __name__ == "__main__":
     run()
