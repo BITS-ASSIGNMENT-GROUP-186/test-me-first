@@ -17,7 +17,6 @@ class PatientUtils:
             self.patient_list.add(name=name, age=age, patient_id=patient_id)
             self.enqueuePatient(patient_id)
             self.id_count += 1
-            #self.testingQueue.Print()
         except Exception as e:
             raise e
 
@@ -27,18 +26,21 @@ class PatientUtils:
 
     def nextPatient(self):
         patid= self.testingQueue.extractMax()
-        print(self.patient_list.getPatientDetails(str(patid)))
+        PatientRecord= self.patient_list.getPatientDetails(str(patid))
+        if PatientRecord:
+            self.file_output.write(PatientRecord[0] + " " + PatientRecord[1] + " " + PatientRecord[2] + "\n")
+        else:
+            self.file_output.write("No more patients in wait list \n")
         self._dequeuePatient(patid)
 
     def _dequeuePatient(self, PatId):
         self.testingQueue.test_dequeMax()
 
-    def DisplaySortedPatientRecord(self):
+    def WriteSortedPatientRecord(self):
         n=self.testingQueue.size
         arr = [None] * n
         for i in range(0, n):
             arr[i] = self.testingQueue.Heap[i+1]
-            #print (arr[i])
 
         for i in range(0, n):
             maxe = arr[i]%100
@@ -50,30 +52,26 @@ class PatientUtils:
                     maxe=arr[i]%100
 
         for i in range(0, n):
-            print(self.patient_list.getPatientDetails(str(arr[i])))
+            PatientRecord=self.patient_list.getPatientDetails(str(arr[i]))
+            if PatientRecord:
+                self.file_output.write(PatientRecord[0]+" "+PatientRecord[1]+" "+PatientRecord[2]+"\n")
 
     def read_patient_info(self,file_path):
         try:
             flag=0
-            #file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', ))
             with open(file_path, 'r') as file:
                 patient_data = file.read().splitlines()
-                #print(patient_data)
                 for data in patient_data:
                     if "newPatient:" in data:
                         temp, new_data = data.split(":")
-                        print("---- new patient entered---------------")
-                        print("Refreshed queue:")
-                        #print(new_data)
+                        self.write_file(1,0)
                         name, age = new_data.split(",")
                         # Add patients to Patient Record List
                         self.registerPatient(name=name.strip(), age=age.strip())
-                        self.DisplaySortedPatientRecord()
+                        self.WriteSortedPatientRecord()
                     elif "nextPatient:" in data:
                         temp, x = data.split(":")
-                        #print(x)
-
-                        print("---- next patient: "+ x +" ---------------")
+                        self.write_file(2,x)
                         x = int(x)
                         while x > 0:
                             self.nextPatient()
@@ -85,28 +83,25 @@ class PatientUtils:
                         self.registerPatient(name=name.strip(), age=age.strip())
 
                 if flag>0 :
-                    print("---- initial queue ---------------")
-                    print("No of patients added: "+ str(flag))
-                    print("Refreshed queue:")
-                    #print(self.testingQueue.size)
-                    self.DisplaySortedPatientRecord()
-                    flag-=1
-                    #self.patient_list.display()
+                    self.write_file(0,flag)
+                    self.WriteSortedPatientRecord()
 
         except Exception as e:
             raise e
-
-    def outputRegisteredPatientInfo(self):
+    def init_outputfile(self,file_path):
         try:
-            file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'output', 'outputPS6.txt'))
-            patients_in_queue = self.testing_queue.get_patients()
-            with open(file_path, 'w') as file:
-                file.write("-----------------Initial Queue-----------------\n")
-                file.write(f"No of patients added: {len(patients_in_queue)}\n")
-                file.write("Refreshed queue:\n")
-                for patient in patients_in_queue[::-1]:
-                    patient_id = patient._value
-                    file.write(f"{patient_id}, {self.patient_list.getPatientName(str(patient_id))}\n")
-                file.write("------------------------------------------------")
+            self.file_output= open(file_path, 'w')
         except Exception as e:
             raise e
+
+    def write_file(self,flag,count):
+        if flag==0: #initial patient list
+            self.file_output.write("-----------------Initial Queue-----------------\n")
+            self.file_output.write(f"No of patients added: "+str(count)+"\n")
+            self.file_output.write("Refreshed queue:\n")
+        if flag==1:#new patient
+            self.file_output.write("-----------------New Patient Entered-----------------\n")
+            self.file_output.write("Refreshed queue:\n")
+        if flag==2:#next patient
+            self.file_output.write("---- next patient: "+str(count)+" ---------------\n")
+

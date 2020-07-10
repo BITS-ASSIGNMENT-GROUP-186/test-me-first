@@ -1,1 +1,39 @@
----- registerPatient ---------------
+-----------------Initial Queue-----------------
+No of patients added: 3
+Refreshed queue:
+100160 Surya 60
+100357 Rishi 57
+100254 Ajay 54
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100160 Surya 60
+100357 Rishi 57
+100455 John 55
+100254 Ajay 54
+---- next patient:  1 ---------------
+100160 Surya 60
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100357 Rishi 57
+100455 John 55
+100254 Ajay 54
+100545 Pradeep 45
+---- next patient:  2 ---------------
+100357 Rishi 57
+100455 John 55
+---- next patient:  1 ---------------
+100254 Ajay 54
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100660 Sandeep 60
+100545 Pradeep 45
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100660 Sandeep 60
+100760 Test 60
+100545 Pradeep 45
+---- next patient:  4 ---------------
+100660 Sandeep 60
+100760 Test 60
+100545 Pradeep 45
+No more patients in wait list 
