@@ -54,6 +54,12 @@ class PatientUtils:
                     arr[i]=arr[j]
                     arr[j]=temp
                     maxe=arr[i]%100
+                elif (arr[j] % 100 == maxe):
+                    if (arr[j]<arr[i]):
+                        temp = arr[i]
+                        arr[i] = arr[j]
+                        arr[j] = temp
+                        maxe = arr[i] % 100
 
         for i in range(0, n):
             PatientRecord=self.patient_list.getPatientDetails(str(arr[i]))

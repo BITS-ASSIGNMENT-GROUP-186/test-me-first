@@ -1,0 +1,68 @@
+-----------------Initial Queue-----------------
+No of patients added: 6
+Refreshed queue:
+100160 Surya 60
+100460 Surya1 60
+100357 Rishi 57
+100657 Rishi3 57
+100254 Ajay 54
+100554 Ajay2 54
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100160 Surya 60
+100460 Surya1 60
+100357 Rishi 57
+100657 Rishi3 57
+100755 John 55
+100254 Ajay 54
+100554 Ajay2 54
+---- next patient:  1 ---------------
+100160 Surya 60
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100460 Surya1 60
+100357 Rishi 57
+100657 Rishi3 57
+100755 John 55
+100254 Ajay 54
+100554 Ajay2 54
+100845 Pradeep 45
+---- next patient:  2 ---------------
+100357 Rishi 57
+100657 Rishi3 57
+---- next patient:  1 ---------------
+100755 John 55
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100460 Surya1 60
+100960 Sandeep 60
+100254 Ajay 54
+100554 Ajay2 54
+100845 Pradeep 45
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100460 Surya1 60
+100960 Sandeep 60
+101060 Test 60
+100254 Ajay 54
+100554 Ajay2 54
+100845 Pradeep 45
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100460 Surya1 60
+100960 Sandeep 60
+101060 Test 60
+100254 Ajay 54
+100554 Ajay2 54
+100845 Pradeep 45
+101145 Test1 45
+-----------------New Patient Entered-----------------
+Refreshed queue:
+100460 Surya1 60
+100960 Sandeep 60
+101060 Test 60
+100254 Ajay 54
+100554 Ajay2 54
+100845 Pradeep 45
+101145 Test1 45
+101245 Tes2 45

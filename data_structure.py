@@ -103,15 +103,6 @@ class MaxHeap:
         self.Heap[fpos]=self.Heap[spos]
         self.Heap[spos] = temp
 
-     # Function to print the contents of the heap
-
-    def Print(self):
-        #print(self.size)
-        for i in range(1, (self.size // 2) + 1):
-            print(" PARENT : " + str(self.Heap[i]) + " LEFT CHILD : " +
-                  str(self.Heap[2 * i]) + " RIGHT CHILD : " +
-                  str(self.Heap[2 * i + 1]))
-
     def extractMax(self):
         if self.size>0 :
             return self.Heap[self.FRONT]
@@ -139,6 +130,7 @@ class MaxHeap:
                     else:
                         self.swap(i - 1, parent)  # swap parent with left sibling
             self.test_upheap(parent)
+            self.test_downheap(parent)
 
     def test_downheap(self, i):
         FlagL=0
@@ -168,4 +160,6 @@ class MaxHeap:
         self.size += 1
         n=self.size
         self.Heap[n] = element
+
+
 
