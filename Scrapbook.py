@@ -1,3 +1,5 @@
+# this is for testing purpose only
+
 import sys
 class MaxHeap:
     def __init__(self, maxsize1):
@@ -34,28 +36,21 @@ class MaxHeap:
         self.FRONT=1
 
     def test_upheap(self, i):
-        #print(self.Heap[i])
         i = int(i)
         parent = int(i / 2)
-        print("______________"+str(parent)+":"+str(self.Heap[parent]) +"is parent of :"+str(self.Heap[i]))
+        # print(str(parent)+"is parent of"+str(self.Heap[i]))
         largest = self.Heap[i] % 100
         if (parent) > 0:
             if (i % 2 == 0):  # it is a left node
                 if largest > (self.Heap[parent]) % 100:  # compare with parent
-                    print(str(self.Heap[i]) + " swapped with 1:" + str(self.Heap[parent]))
                     self.swap(i, parent)  # swap with parent if its bigger than parent
             else:
-                print("______________" + str(i - 1) + ":" + str(self.Heap[i-1]) + "is left sibling of :" + str(self.Heap[i]))
                 if largest > (self.Heap[parent]) % 100:  # compare with parent
                     if largest > (self.Heap[i - 1]) % 100:  # compare with left sibling
-                        print(str(self.Heap[i]) + " swapped with 2:" + str(self.Heap[parent]))
                         self.swap(i, parent)  # swap with parent if its bigger than parent and left sibling
                     else:
-                        print(str(self.Heap[i-1]) + " swapped with 3:" + str(self.Heap[parent]))
                         self.swap(i - 1, parent)  # swap parent with left sibling
             self.test_upheap(parent)
-            self.test_downheap(parent)
-
     def test_downheap(self, i):
         FlagL=0
         FlagR=0
@@ -84,14 +79,8 @@ class MaxHeap:
         self.size += 1
         n=self.size
         self.Heap[n] = element
-        #self.test_upheap(n)
-        #print("Inserted "+ str(n) + " : " +str(self.Heap[n]))
-        #if (n>1):
-            #self.test_upheap(n)
-        #self.Print()
-    #def test_heapify(self,i):
-
-
+        if (n>1):
+            self.test_upheap(n)
 
 if __name__ == "__main__":
     minHeap=MaxHeap(20)
@@ -109,8 +98,7 @@ if __name__ == "__main__":
     #minHeap.test_downheap(1)
     print('----------The maxHeap is of size:'+str(minHeap.size)+"____________________________")
     minHeap.Print()
-    print("The Max val is " + str(minHeap.extractMax()))
-    #minHeap.test_dequeMax()
+
 
     #minHeap.Print()
     #print("The Max val is " + str(minHeap.extractMax()))

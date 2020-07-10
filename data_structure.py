@@ -130,7 +130,6 @@ class MaxHeap:
                     else:
                         self.swap(i - 1, parent)  # swap parent with left sibling
             self.test_upheap(parent)
-            self.test_downheap(parent)
 
     def test_downheap(self, i):
         FlagL=0
@@ -160,6 +159,8 @@ class MaxHeap:
         self.size += 1
         n=self.size
         self.Heap[n] = element
+        if (n>1):
+            self.test_upheap(n)
 
 
 

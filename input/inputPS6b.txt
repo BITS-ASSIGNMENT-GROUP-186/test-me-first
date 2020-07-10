@@ -7,3 +7,4 @@ newPatient: Sandeep, 60
 newPatient: Test, 60
 newPatient: Test1, 45
 newPatient: Tes2, 45
+nextPatient: 12

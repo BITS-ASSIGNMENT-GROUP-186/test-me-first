@@ -79,7 +79,7 @@ class PatientUtils:
                             name, age = new_data.split(",")
                             # Add patients to Patient Record List
                             self.registerPatient(name=name.strip(), age=age.strip())
-                            self.SortQueue()# if this is included in enqueue function remove from here, it increases complexity but adheres to problem statement
+                            #self.SortQueue()# if this is included in enqueue function remove from here, it increases complexity but adheres to problem statement
                             self.WriteSortedPatientRecord()
                         elif "nextPatient:" in data:
                             temp, x = data.split(":")
@@ -97,7 +97,7 @@ class PatientUtils:
                         # Add patients to Patient Record List
                         self.registerPatient(name=name.strip(), age=age.strip())
                         flag+=1
-                    self.SortQueue()# if this is included in enqueue function remove from here, it increases complexity but adheres to problem statement
+                    #self.SortQueue()# if this is included in enqueue function remove from here, it increases complexity but adheres to problem statement
                     self.write_file(0,flag)
                     self.WriteSortedPatientRecord()
         except Exception as e:
