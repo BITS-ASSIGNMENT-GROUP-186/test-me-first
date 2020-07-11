@@ -4,6 +4,24 @@ This module has reusable functions used throughout the application to support al
 from data_structure import PatientList,MaxHeap
 #from Scrapbook import MaxHeap
 import os
+import functools
+import time
+
+
+class Decorators:
+    @staticmethod
+    def timer(func):
+        """Print the runtime of the decorated function"""
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            start_time = time.perf_counter()
+            value = func(*args, **kwargs)
+            end_time = time.perf_counter()
+            run_time = end_time - start_time
+            print(f"Finished {func.__name__!r} in {run_time:.4f} secs")
+            return value
+        return wrapper
 
 class PatientUtils:
     def __init__(self):

@@ -3,8 +3,9 @@ This module is the entry point of the application and contains method to run and
 files
 """
 import os
-from utils import PatientUtils
+from utils import PatientUtils,Decorators
 
+@Decorators.timer
 def run():
     #better to take user inputs and validate
     patient_utils = PatientUtils()
