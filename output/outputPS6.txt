@@ -6,8 +6,8 @@ Refreshed queue:
 100558, Anil
 100357, Rishi
 100254, Ajay
-100726, Danush
 100426, Kunal
+100726, Danush
 ------------------------------------------------
 
 -----------------new patient entered-----------------
@@ -19,8 +19,8 @@ Refreshed queue:
 100357, Rishi
 100855, John
 100254, Ajay
-100726, Danush
 100426, Kunal
+100726, Danush
 ------------------------------------------------
 
 ---- next patient : 1 ---------------
@@ -37,8 +37,8 @@ Refreshed queue:
 100855, John
 100254, Ajay
 100945, Pradeep
-100726, Danush
 100426, Kunal
+100726, Danush
 ------------------------------------------------
 
 ---- next patient : 2 ---------------

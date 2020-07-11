@@ -82,7 +82,7 @@ class PatientUtils:
             patients_in_queue = patients_in_queue if patients_in_queue else self.testing_queue.get_patients()
             self.file_output.write("Refreshed queue:\n")
             for patient in patients_in_queue[::-1]:
-                patient_id = patient._value
+                patient_id = patient.patient_id
                 self.file_output.write(f"{patient_id}, {self.patient_list.getPatientName(str(patient_id))}\n")
             self.file_output.write("------------------------------------------------")
         except Exception as e:
