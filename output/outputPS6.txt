@@ -1,81 +1,48 @@
+**Error in file 1 at line: 1 : Invalid input:Record should have name and age details only 
+**Error in file 1 at line: 5 : Invalid input:Record should have name and age details only 
+**Error in file 1 at line: 7 : Invalid input:Record should have name and age details only 
+**Error in file 1 at line: 8 : Invalid input for age :Age must be numeric and less than 100 
 -----------------Initial Queue-----------------
-No of patients added: 6
+No of patients added: 4
 Refreshed queue:
-100160 Surya 60
-100460 Surya1 60
-100357 Rishi 57
-100657 Rishi3 57
-100254 Ajay 54
-100554 Ajay2 54
------------------New Patient Entered-----------------
-Refreshed queue:
-100160 Surya 60
-100460 Surya1 60
-100357 Rishi 57
-100657 Rishi3 57
-100755 John 55
-100254 Ajay 54
-100554 Ajay2 54
+100360 Surya1 60
+100257 Rishi 57
+100457 Rishi3 57
+100154 Ajay 54
+**Error in file 2 at line: 1 : Invalid input for age :Age must be numeric and less than 100
 ---- next patient:  1 ---------------
-100160 Surya 60
------------------New Patient Entered-----------------
-Refreshed queue:
-100460 Surya1 60
-100357 Rishi 57
-100657 Rishi3 57
-100755 John 55
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
----- next patient:  2 ---------------
-100460 Surya1 60
-100357 Rishi 57
+100360 Surya1 60
+**Error in file 2 at line: 3 : Invalid input:new Patient should have name and age details only
+**Error in file 2 at line: 4 : Invalid Keyword :'nextPatient' and 'newPatient' are only valid
+**Error in file 2 at line: 5 : Invalid entry for nextPatient.Valid format is 'nextPatient:age' where age is numeric and less thn 100
 ---- next patient:  1 ---------------
-100657 Rishi3 57
+100457 Rishi3 57
 -----------------New Patient Entered-----------------
 Refreshed queue:
-100960 Sandeep 60
-100755 John 55
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
+100560 Sandeep 60
+100257 Rishi 57
+100154 Ajay 54
 -----------------New Patient Entered-----------------
 Refreshed queue:
-100960 Sandeep 60
-101060 Test 60
-100755 John 55
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
+100560 Sandeep 60
+100660 Test 60
+100257 Rishi 57
+100154 Ajay 54
+**Error in file 2 at line: 9 : Invalid entry for nextPatient.Valid format is 'nextPatient:age' where age is numeric and less thn 100
 -----------------New Patient Entered-----------------
 Refreshed queue:
-100960 Sandeep 60
-101060 Test 60
-100755 John 55
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
-101145 Test1 45
+100560 Sandeep 60
+100660 Test 60
+100257 Rishi 57
+100154 Ajay 54
+100745 Test1 45
 -----------------New Patient Entered-----------------
 Refreshed queue:
-100960 Sandeep 60
-101060 Test 60
-100755 John 55
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
-101145 Test1 45
-101245 Tes2 45
----- next patient:  12 ---------------
-100960 Sandeep 60
-101060 Test 60
-100755 John 55
-100254 Ajay 54
-100554 Ajay2 54
-101145 Test1 45
-101245 Tes2 45
-100845 Pradeep 45
-No more patients in wait list 
-No more patients in wait list 
-No more patients in wait list 
-No more patients in wait list 
+100560 Sandeep 60
+100660 Test 60
+100257 Rishi 57
+100154 Ajay 54
+100745 Test1 45
+100845 Tes2 45
+**Error in file 2 at line: 12 : Invalid Keyword :'nextPatient' and 'newPatient' are only valid
+**Error in file 2 at line: 13 : Invalid entry for nextPatient.Valid format is 'nextPatient:age' where age is numeric and less thn 100

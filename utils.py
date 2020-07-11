@@ -16,6 +16,9 @@ class PatientUtils:
             patient_id = f"{self.id_count}{age}"
             self.patient_list.add(name=name, age=age, patient_id=patient_id)
             self.enqueuePatient(patient_id)
+            #print(str(self.id_count)+"____________________\n")
+            #self.testingQueue.Print()
+
             self.id_count += 1
         except Exception as e:
             raise e
@@ -71,35 +74,59 @@ class PatientUtils:
             flag=0
             with open(file_path, 'r') as file:
                 if str(Filetype)=="Type2":
+                    ctr=0
                     patient_data = file.read().splitlines()
                     for data in patient_data:
+                        ctr+=1
                         if "newPatient:" in data:
                             temp, new_data = data.split(":")
-                            self.write_file(1,0)
-                            name, age = new_data.split(",")
-                            # Add patients to Patient Record List
-                            self.registerPatient(name=name.strip(), age=age.strip())
-                            #self.SortQueue()# if this is included in enqueue function remove from here, it increases complexity but adheres to problem statement
-                            self.WriteSortedPatientRecord()
+                            if temp=="newPatient":
+                                if len(new_data.split(","))==2:
+                                    name, age = new_data.split(",")
+                                    if (age.strip().isnumeric() and int(age)<100):
+                                    # Add patients to Patient Record List
+                                        self.write_file(1, 0)
+                                        self.registerPatient(name=name.strip(), age=age.strip())
+                                        self.WriteSortedPatientRecord()
+                                    else:
+                                        self.file_output.write("**Error in file 2 at line: "+str(ctr) +" : Invalid input for age :Age must be numeric and less than 100\n")
+                                else:
+                                    self.file_output.write("**Error in file 2 at line: "+str(ctr) +" : Invalid input:new Patient should have name and age details only\n")
+                            else:
+                                self.file_output.write("**Error in file 2 at line: "+str(ctr) +" : Invalid Keyword :'nextPatient' and 'newPatient' are only valid\n")
                         elif "nextPatient:" in data:
                             temp, x = data.split(":")
-                            self.write_file(2,x)
-                            x = int(x)
-                            while x > 0:
-                                self.nextPatient()
-                                x-=1
+                            if (temp=="nextPatient" and len(x)==2 and x.strip().isnumeric() and int(x)<100):
+                                self.write_file(2,x)
+                                x = int(x)
+                                while x > 0:
+                                    self.nextPatient()
+                                    x-=1
+                            else:
+                                self.file_output.write("**Error in file 2 at line: "+str(ctr) +" : Invalid entry for nextPatient.Valid format is 'nextPatient:age' where age is numeric and less thn 100\n")
                         else:
-                            self.file_output.write("____________Invalid input_________\n")
+                            self.file_output.write("**Error in file 2 at line: "+str(ctr) +" : Invalid Keyword :'nextPatient' and 'newPatient' are only valid\n")
                 elif str(Filetype)=="Type1":
+                    ctr=0
                     patient_data = file.read().splitlines()
                     for data in patient_data:
-                        name, age = data.split(",")
-                        # Add patients to Patient Record List
-                        self.registerPatient(name=name.strip(), age=age.strip())
-                        flag+=1
-                    #self.SortQueue()# if this is included in enqueue function remove from here, it increases complexity but adheres to problem statement
-                    self.write_file(0,flag)
-                    self.WriteSortedPatientRecord()
+                        ctr+=1
+                        if (len(data.split(",")) == 2):
+                            name, age = data.split(",")
+                            if (age.strip().isnumeric() and int(age.strip()) < 100 ):
+                                # Add patients to Patient Record List
+                                self.registerPatient(name=name.strip(), age=age.strip())
+                                flag+=1
+                            else:
+                                self.file_output.write("**Error in file 1 at line: "+str(ctr) +" : Invalid input for age :Age must be numeric and less than 100 \n")
+                        else:
+                            self.file_output.write("**Error in file 1 at line: "+str(ctr) +" : Invalid input:Record should have name and age details only \n")
+                    self.write_file(0, flag)
+                    if (flag>0):
+                        self.WriteSortedPatientRecord()
+                    else:
+                        self.file_output.write("**Error in file 1: No valid inputs in File \n")
+
         except Exception as e:
             raise e
     def init_outputfile(self,file_path):

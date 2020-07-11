@@ -154,13 +154,25 @@ class MaxHeap:
                 else:
                     self.swap(Left, i)  # swap left with parent if its bigger than parent and right doesnt exist
                     self.test_downheap(Left)
+            elif FlagR==1 and largest < (self.Heap[Right]) % 100:  # compare with right child when left is less than parent
+                self.swap(Right, i)  # swap right with parent if its bigger than both parent and left
+                self.test_downheap(Right)
 
     def test_insert(self, element):
         self.size += 1
         n=self.size
         self.Heap[n] = element
         if (n>1):
-            self.test_upheap(n)
+            #self.test_upheap(n)
+            x=int(n/2) # index of parent
+            while x>0 :
+                self.test_downheap(x)
+                x-=1
 
-
+    def Print(self):
+        #print(self.size)
+        for i in range(1, (self.size // 2) + 1):
+            print(" PARENT : " + str(self.Heap[i]) + " LEFT CHILD : " +
+                  str(self.Heap[2 * i]) + " RIGHT CHILD : " +
+                  str(self.Heap[2 * i + 1]))
 

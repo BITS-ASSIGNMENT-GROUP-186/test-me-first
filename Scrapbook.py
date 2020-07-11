@@ -80,7 +80,12 @@ class MaxHeap:
         n=self.size
         self.Heap[n] = element
         if (n>1):
-            self.test_upheap(n)
+            #self.test_upheap(n)
+            x=int(n/2) # index of parent
+            #print (x)
+            while x>0 :
+                self.test_downheap(x)
+                x-=1
 
 if __name__ == "__main__":
     minHeap=MaxHeap(20)
@@ -92,9 +97,8 @@ if __name__ == "__main__":
     minHeap.test_insert(278)
     minHeap.test_insert(178)
 
-    print("_________before upheap_____________")
-    minHeap.Print()
-    minHeap.test_upheap(minHeap.size)
+    #minHeap.Print()
+   # minHeap.test_upheap(minHeap.size)
     #minHeap.test_downheap(1)
     print('----------The maxHeap is of size:'+str(minHeap.size)+"____________________________")
     minHeap.Print()

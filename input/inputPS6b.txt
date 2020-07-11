@@ -1,10 +1,13 @@
-newPatient: John, 55
+newPatient: John, 180
 nextPatient: 1
-newPatient: Pradeep, 45
-nextPatient: 2
+newPatient: Pradeep, 45,43
+xyz:abc
+nextPatient: 200
 nextPatient: 1
-newPatient: Sandeep, 60
+newPatient: Sandeep,60
 newPatient: Test, 60
+nextPatient: abc
 newPatient: Test1, 45
 newPatient: Tes2, 45
+
 nextPatient: 12
