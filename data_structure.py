@@ -6,6 +6,7 @@ PatientRecord: A list containing the patient information including the patientâ€
 TestingQueue: A max heap containing the patient id sorted in order of next patient for testing based on the age of the patient.
 """
 
+
 class PatientRecord:
     """
     Represent a node of doubly linked list.
@@ -143,7 +144,7 @@ class TestingQueueBase:
             return self.age > other.age  # compare patients based on their age
 
         def __lt__(self, other):
-            """Lesser than comparison"""
+            """Less than comparison"""
             return self.age < other.age  # compare patients based on their age
 
         def __eq__(self, other):
@@ -250,26 +251,6 @@ class TestingQueue(TestingQueueBase):
         if largest != i:
             self._swap(i, largest)
             self.heapify(n, largest)
-
-    # def heapify(self, n, i):
-    #     largest = i  # largest value
-    #     left_child = self._left(i)
-    #     right_child = self._right(i)
-    #
-    #     # if left child exists
-    #     if left_child < n and self._data[i] < self._data[left_child]:
-    #         largest = left_child
-    #     elif left_child < n and self._data[i] == self._data[left_child] and self._data[i].patient_id>self._data[left_child].patient_id:
-    #         largest = left_child
-    #     # if right child exits
-    #     if right_child < n and self._data[largest] < self._data[right_child]:
-    #         largest = right_child
-    #     elif right_child < n and self._data[i] == self._data[right_child] and self._data[i].patient_id>self._data[right_child].patient_id:
-    #         largest = right_child
-    #     # root
-    #     if largest != i:
-    #         self._swap(i, largest)
-    #         self.heapify(n, largest)
 
     def remove_max(self):
         """

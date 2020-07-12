@@ -1,6 +1,7 @@
 """
 This module has reusable functions used throughout the application to support all the processes
 """
+
 from data_structure import PatientList, TestingQueue
 import functools
 import time
@@ -174,7 +175,7 @@ class PatientUtils:
 
                             if int(age.strip()) < 1 or int(age.strip()) > 99:
                                 self.input_file_b_errors.append(f"inputPS6b.txt, line {i + 1}: Age given is {age.strip()}. "
-                                                                f"Age can't be lower than 1 nor greater than 99. Patient with name '{name.strip()}' not registered.\n")
+                                                                f"Age can't be lower than 1 nor greater than 99. Patient not registered.\n")
                                 continue
 
                             patient_id = self.registerPatient(name=name.strip(), age=age.strip())
@@ -183,7 +184,17 @@ class PatientUtils:
                             self.outputNewPatientRecords(name=name, age=age, patient_id=patient_id)
                         elif operation == "nextPatient":
                             num_of_patients = parameters.strip()
-                            self.nextPatient(num_of_patients)
+
+                            if not num_of_patients.isnumeric():
+                                self.input_file_b_errors.append(f"inputPS6b.txt, line {i + 1}: Number of patients '{num_of_patients}' not in expected format. "
+                                                                f"Number of patients can only be numeric. Input not considered.\n")
+                                continue
+
+                            self.file_output.write("\n\n")
+                            self.file_output.write(f"---- next patient : {num_of_patients} ---------------\n")
+                            for patient in range(int(num_of_patients)):
+                                self.nextPatient()
+                            self.file_output.write("---------------------------------------------------\n")
                         else:
                             self.input_file_b_errors.append(f"inputPS6b.txt, line {i + 1}: Data '{data}' not in expected format. "
                                                             f"Please input data in the format: 'newPatient: name, age' or "
@@ -218,23 +229,16 @@ class PatientUtils:
         except Exception as e:
             raise e
 
-    def nextPatient(self, num_of_patients):
+    def nextPatient(self):
         """
         It will output the patient id with highest priority and remove it from the heap
         :return: None
         """
         try:
-            if num_of_patients.isnumeric():
-                self.file_output.write("\n\n")
-                self.file_output.write(f"---- next patient : {num_of_patients} ---------------\n")
-                for i in range(int(num_of_patients)):
-                    max_patient_id = self.testing_queue.max()
-                    # Dequeue patient who has completed testing
-                    self._dequeuePatient(max_patient_id)
-                    self.file_output.write(f"Next patient for testing is: {max_patient_id}, {self.patient_list.getPatientName(str(max_patient_id))}\n")
-                self.file_output.write("---------------------------------------------------\n")
-            else:
-                raise ValueError
+            max_patient_id = self.testing_queue.max()
+            # Dequeue patient who has completed testing
+            self._dequeuePatient(max_patient_id)
+            self.file_output.write(f"Next patient for testing is: {max_patient_id}, {self.patient_list.getPatientName(str(max_patient_id))}\n")
         except Exception as e:
             raise e
 
