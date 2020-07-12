@@ -24,6 +24,9 @@ class Decorators:
 
 
 class PatientUtils:
+    """
+    PatientUtils class containing various functions required for functioning of the program
+    """
     def __init__(self):
         self.id_count = 1001
         self.patient_list = PatientList()
@@ -35,6 +38,9 @@ class PatientUtils:
         self.input_file_b_errors = []
 
     def readAndOutputInitialPatients(self):
+        """
+        Reads initial input file "inputPS6a.txt" and stores records onto the priority queue
+        """
         try:
             file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6a.txt'))
             with open(file_path, 'r') as file:
@@ -75,7 +81,7 @@ class PatientUtils:
             self.testing_queue.heapSort()
             # Output the contents
             self.outputRegisteredPatientInfo()
-            # Write all errors of input file a, if any
+            # Write all errors of input file PS6a, if any
             if self.input_file_a_errors:
                 self.writeInputFileErrors(file_name="a")
 
@@ -83,8 +89,16 @@ class PatientUtils:
             raise e
 
     def registerPatient(self, name, age):
+        """
+        Registers the patient with name and age and assigns them a unique patient id
+        :param name: name of the patient
+        :param age: age of the patient
+        :return: generated patient id
+        """
         try:
+            # Creating patient id
             patient_id = f"{self.id_count}{age}"
+            # Adding patients to patientList
             self.patient_list.add(name=name, age=age, patient_id=patient_id)
             self.id_count += 1
             # Enqueuing patients in the heap
@@ -94,7 +108,11 @@ class PatientUtils:
             raise e
 
     def outputRegisteredPatientInfo(self):
+        """
+        Prints the already registered patients' name along with patient id on the output file "outputPS6.txt"
+        """
         try:
+            # Getting all patients
             patients_in_queue = self.testing_queue.get_patients()
             self.file_output.write("-----------------initial queue-----------------\n")
             self.file_output.write(f"No of patients added: {len(patients_in_queue)}\n")
@@ -103,6 +121,12 @@ class PatientUtils:
             raise e
 
     def outputNewPatientRecords(self, name, age, patient_id):
+        """
+        Prints the newly registered patients' name along with patient id on the output file "outputPS6.txt"
+        :param name: name of the patient
+        :param age: age of the patient
+        :param patient_id: patient id of the patient
+        """
         try:
             self.file_output.write("\n\n")
             self.file_output.write("-----------------new patient entered-----------------\n")
@@ -112,6 +136,9 @@ class PatientUtils:
             raise e
 
     def printFullQueue(self, patients_in_queue=None):
+        """
+        Prints all the patients currently present in the queue on the output file "outputPS6.txt"
+        """
         try:
             patients_in_queue = patients_in_queue if patients_in_queue else self.testing_queue.get_patients()
             self.file_output.write("Refreshed queue:\n")
@@ -123,6 +150,9 @@ class PatientUtils:
             raise e
 
     def serviceNextPatients(self):
+        """
+        Reads the tags from the input file "inputPS6b.txt" and performs specific operation depending on the tag
+        """
         try:
             file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6b.txt'))
             with open(file_path, 'r') as file:
@@ -152,13 +182,18 @@ class PatientUtils:
                                                         f"'nextPatient: number_of_patients_next_in_queue'. Input not considered.\n")
                         continue
 
-                # Write all errors of input file a, if any
+                # Write all errors of input file PS6b, if any
                 if self.input_file_b_errors:
                     self.writeInputFileErrors(file_name="b")
         except Exception as e:
             raise e
 
     def enqueuePatient(self, PatId):
+        """
+        Adding a new patient id onto the priority queue
+        :param PatId: patient id of the patient
+        :return: None
+        """
         try:
             self.testing_queue.add(patient_id=int(PatId))
         except Exception as e:
@@ -182,12 +217,21 @@ class PatientUtils:
             raise e
 
     def _dequeuePatient(self, PatId):
+        """
+        Removes the patient id of the patient which has been tested from the queue
+        :param PatId: patient id of the patient to be removed
+        :return: None
+        """
         try:
             return self.testing_queue.remove_max()
         except Exception as e:
             raise e
 
     def writeErrorMessage(self, msg):
+        """
+        Writes error message, if encountered to the output file
+        :param msg: error message to be written
+        """
         try:
             msg_length = len(msg) if '\n' not in msg else len(msg.split("\n")[0])
             self.file_output.write("\n\n")
@@ -199,6 +243,10 @@ class PatientUtils:
             raise e
 
     def writeInputFileErrors(self, file_name):
+        """
+        Writes error message of the specific input file onto the output file
+        :param file_name: file name which has encountered error
+        """
         try:
             errors = self.input_file_a_errors if file_name == "a" else self.input_file_b_errors
             max_length = len(max(errors, key=len))

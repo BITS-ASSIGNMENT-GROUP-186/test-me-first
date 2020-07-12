@@ -7,3 +7,4 @@ newPatient: Sandeep, 70
 nextPatient: 3
 newPatient: Ram, 85
 newPatient: Sham, 15
+newPatient: Sam, 15

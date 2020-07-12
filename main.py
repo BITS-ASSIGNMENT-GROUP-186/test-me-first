@@ -10,6 +10,10 @@ from utils import PatientUtils, Decorators
 
 @Decorators.timer
 def run():
+    """
+    Starting point of the whole program, calls out PatientUtils class and performs intended operations
+    Raise exception in event of unexpected behavior
+    """
     try:
         patient_utils = PatientUtils()
         # Read and register initial list of patients
