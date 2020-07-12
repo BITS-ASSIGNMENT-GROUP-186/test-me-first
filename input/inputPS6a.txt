@@ -1,6 +1,7 @@
 Surya, 60
 Ajay, 54
 Rishi, 57
-Surya1, 60
-Ajay2, 54
-Rishi3, 57
+Kunal, 26
+Anil, 58
+Vivek, 60
+Danush, 26

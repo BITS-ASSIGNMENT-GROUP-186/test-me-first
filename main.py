@@ -5,18 +5,16 @@ files
 import os
 from utils import PatientUtils
 
+
 def run():
-    #better to take user inputs and validate
     patient_utils = PatientUtils()
 
-    file_path_output = os.path.abspath(os.path.join(os.path.dirname(__file__), 'output', 'outputPS6.txt'))
-    patient_utils.init_outputfile(file_path_output)
+    initial_patients_file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6a.txt'))
+    patient_utils.read_patient_info(file_path=initial_patients_file_path, patient_type="InitialPatients")
 
-    file_path1 = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6a.txt'))
-    patient_utils.read_patient_info(file_path1,"Type1")
+    next_patients_file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6b.txt'))
+    patient_utils.read_patient_info(file_path=next_patients_file_path, patient_type="NextPatients")
 
-    file_path2 = os.path.abspath(os.path.join(os.path.dirname(__file__), 'input', 'inputPS6b.txt'))
-    patient_utils.read_patient_info(file_path2,"Type2")
 
 if __name__ == "__main__":
     run()

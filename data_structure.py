@@ -3,15 +3,14 @@ This module has the custom data structures used in the application
 
 PatientRecord: A list containing the patient information including the patient’s name, age and the patient number (assigned by the program).
 
-MaxHeap: A max heap containing the patient id sorted in order of next patient for testing based on the age of the patient.
+TestingQueue: A max heap containing the patient id sorted in order of next patient for testing based on the age of the patient.
 """
 
 
 # Represent a node of doubly linked list
 class PatientRecord:
     def __init__(self, name, age, patient_id):
-        self.patient_id =patient_id
-        #self.patient_id = str(patient_id) +str(age)
+        self.patient_id = patient_id        
         self.name = name
         self.age = age
         self.left = None
@@ -71,95 +70,152 @@ class PatientList:
         while current is not None:
             # Prints each node by incrementing pointer.
             if current.patient_id == patient_id:
-                return current.patient_id,current.name ,current.age
+                return current
             current = current.right
 
-    def __len__(self):
-        current = self.head
-        if not self.head:
-            raise Exception("List is empty!!")
-            return
 
-        count = 0
-        while current is not None:
-            count+=1
-            current = current.right
-        return count
-
-    def getList(self):
-        return list(self.current)
-##_____________________________________________________________________________________________
-class MaxHeap:
-    def __init__(self, maxsize1):
-        self.maxsize = maxsize1
+class TestingQueue:
+    def __init__(self):
         self.size = 0
-        self.Heap = [0] * (self.maxsize + 1)
-        self.Heap[0] = 0
-        self.FRONT = 1
+        self.heap = []
 
-    # Function to swap two nodes of the heap
-    def swap(self, fpos, spos):
-        temp=self.Heap[fpos]
-        self.Heap[fpos]=self.Heap[spos]
-        self.Heap[spos] = temp
+    def _parent(self, j):
+        return (j - 1) // 2
 
-    def extractMax(self):
-        if self.size>0 :
-            return self.Heap[self.FRONT]
+    def _left(self, j):
+        return 2 * j + 1
 
-    def test_dequeMax(self):
-        #print(str(self.Heap[self.FRONT]) + " exchanged with " + str(self.size) + " ie :" + str(self.Heap[self.size]))
-        self.Heap[self.FRONT] = self.Heap[self.size]
+    def _right(self, j):
+        return 2 * j + 2
+
+    def _has_left(self, j):
+        return self._left(j) < len(self.heap)  # index beyond end of list?
+
+    def _has_right(self, j):
+        return self._right(j) < len(self.heap)  # index beyond end of list?
+
+    def is_empty(self):  # concrete method assuming abstract len
+        """Return True if the priority queue is empty."""
+        return len(self.heap) == 0
+
+    def swap(self, i, j):
+        """
+        Swap the elements at indices i and j of array.
+        """
+        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+
+    def top(self):
+        return self.heap[0] if self.heap else "No patient in the queue. Heap is empty"
+
+    def remove_max(self):
+        if self.is_empty():
+            raise Exception("Testing queue is empty")
+        self.swap(0, len(self.heap) - 1)  # put maximum item at the end
+        self.heap.pop()  # and remove it from the list
         self.size -= 1
-        self.test_downheap(1)
-        self.FRONT=1
+        self.downheap(0)  # then fix new root
 
-    def test_upheap(self, i):
-        i = int(i)
-        parent = int(i / 2)
-        # print(str(parent)+"is parent of"+str(self.Heap[i]))
-        largest = self.Heap[i] % 100
-        if (parent) > 0:
-            if (i % 2 == 0):  # it is a left node
-                if largest > (self.Heap[parent]) % 100:  # compare with parent
-                    self.swap(i, parent)  # swap with parent if its bigger than parent
-            else:
-                if largest > (self.Heap[parent]) % 100:  # compare with parent
-                    if largest > (self.Heap[i - 1]) % 100:  # compare with left sibling
-                        self.swap(i, parent)  # swap with parent if its bigger than parent and left sibling
-                    else:
-                        self.swap(i - 1, parent)  # swap parent with left sibling
-            self.test_upheap(parent)
-            self.test_downheap(parent)
+    # def upheap(self, j):
+    #     try:
+    #         parent = self._parent(j)
+    #         if j > 0 and self.heap[j] % 100 > self.heap[parent] % 100:
+    #             self.swap(j, parent)
+    #             self.upheap(parent)  # recur at position of parent
+    #     except Exception as e:
+    #         raise e
 
-    def test_downheap(self, i):
-        FlagL=0
-        FlagR=0
-        largest = self.Heap[i] % 100
-        n=self.size
-        Left=i*2
-        Right=Left+1
-        if Left<=n: #Left exists
-            FlagL=1
-        if Right<=n: #right exists
-            FlagR=1
-        if FlagL==1:
-            if largest < (self.Heap[Left]) % 100:  # compare with left child
-                if FlagR==1:
-                    if ((self.Heap[Left]) % 100)<((self.Heap[Right]) % 100):
-                        self.swap(Right, i)  # swap right with parent if its bigger than both parent and left
-                        self.test_downheap(Right)
-                    else:
-                        self.swap(Left, i)  # swap left with parent if its bigger than both parent and right
-                        self.test_downheap(Left)
+    def downheap(self, j):
+        if self._has_left(j):
+            left = self._left(j)
+            big_child = left  # although right may be smaller
+            if self._has_right(j):
+                right = self._right(j)
+                if self.heap[right] % 100 > self.heap[left] % 100:
+                    big_child = right
+            if self.heap[big_child] % 100 > self.heap[j] % 100:
+                self.swap(j, big_child)
+                self.downheap(big_child)  # recur at position of small child
+
+    def upheap(self, n=None):
+        start = self._parent(n if n else len(self.heap) - 1)  # start at PARENT of last leaf
+        for j in range(start, -1, -1):  # going to and including the root
+            self.downheap(j)
+
+    # Function to heapify the node at pos
+    def maxHeapify(self, pos):
+        # If the node is a non-leaf node and smaller than any of its child
+        if self._parent(pos):
+            if (self.heap[pos] % 100 < self.heap[self._left(pos)] % 100 or
+                    self.heap[pos] % 100 < self.heap[self._right(pos)] % 100):
+
+                # Swap with the left child and heapify the left child
+                if self.heap[self._left(pos) % 100] > self.heap[self._right(pos) % 100]:
+                    self.swap(pos, self._left(pos))
+                    self.maxHeapify(self._left(pos))
+
+                # Swap with the right child and heapify the right child
                 else:
-                    self.swap(Left, i)  # swap left with parent if its bigger than parent and right doesnt exist
-                    self.test_downheap(Left)
+                    self.swap(pos, self._right(pos))
+                    self.maxHeapify(self._right(pos))
 
-    def test_insert(self, element):
+    # def downheap(self, i):
+    #     left_flag, right_flag = 0, 0
+    #     largest = self.heap[i] % 100
+    #     n = self.size
+    #     left = i * 2 + 1
+    #     right = left + 1
+    #     if left <= n:  # left exists
+    #         left_flag = 1
+    #     if right <= n:  # right exists
+    #         right_flag = 1
+    #     if left_flag == 1:
+    #         if largest < self.heap[left] % 100:  # compare with left child
+    #             if right_flag == 1:
+    #                 if (self.heap[left] % 100) < (self.heap[right] % 100):
+    #                     self.swap(right, i)  # swap right with parent if its bigger than both parent and left
+    #                     self.downheap(right)
+    #                 else:
+    #                     self.swap(left, i)  # swap left with parent if its bigger than both parent and right
+    #                     self.downheap(left)
+    #             else:
+    #                 self.swap(left, i)  # swap left with parent if its bigger than parent and right doesnt exist
+    #                 self.downheap(left)
+
+    # sort
+    def heap_sort(self):
+        n = len(self.heap)
+
+        # Build a maxheap.
+        # Since last parent will be at ((n//2)-1) we can start at that location.
+        for i in range(n // 2 - 1, -1, -1):
+            self.heapify(n, i)
+
+        # One by one extract elements
+        for i in range(n - 1, 0, -1):
+            if self.heap[i] % 100 == self.heap[0] % 100 and self.heap[0] > self.heap[1]:
+                self.heapify(i, 0)
+                continue
+            self.swap(i, 0)
+            self.heapify(i, 0)
+
+    def heapify(self, n, i):
+        largest = i  # largest value
+        left_child = self._left(i)
+        right_child = self._right(i)
+
+        # if left child exists
+        if left_child < n and self.heap[i] % 100 < self.heap[left_child] % 100:
+            largest = left_child
+
+        # if right child exits
+        if right_child < n and self.heap[largest] % 100 < self.heap[right_child] % 100:
+            largest = right_child
+
+        # root
+        if largest != i:
+            self.swap(i, largest)
+            self.heapify(n, largest)
+
+    def insert(self, patient_id):
         self.size += 1
-        n=self.size
-        self.Heap[n] = element
-
-
-
+        self.heap.append(patient_id)

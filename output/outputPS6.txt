@@ -1,68 +1,87 @@
------------------Initial Queue-----------------
-No of patients added: 6
+-----------------Initial Queue-----------------------
+No of patients added: 7
 Refreshed queue:
-100160 Surya 60
-100460 Surya1 60
-100357 Rishi 57
-100657 Rishi3 57
-100254 Ajay 54
-100554 Ajay2 54
------------------New Patient Entered-----------------
+100160, Surya
+100660, Vivek
+100558, Anil
+100357, Rishi
+100254, Ajay
+100426, Kunal
+100726, Danush
+------------------------------------------------------
+
+-----------------new patient entered------------------
+Patient details: John, 55, 100855
 Refreshed queue:
-100160 Surya 60
-100460 Surya1 60
-100357 Rishi 57
-100657 Rishi3 57
-100755 John 55
-100254 Ajay 54
-100554 Ajay2 54
----- next patient:  1 ---------------
-100160 Surya 60
------------------New Patient Entered-----------------
+100855, John
+100726, Danush
+100254, Ajay
+100426, Kunal
+100357, Rishi
+100160, Surya
+100558, Anil
+100660, Vivek
+------------------------------------------------------
+
+---------------next patient: 1 ---------------
+Next patient for testing is: 100660, Vivek
+------------------------------------------------------
+
+-----------------new patient entered------------------
+Patient details: Pradeep, 45, 100945
 Refreshed queue:
-100460 Surya1 60
-100357 Rishi 57
-100657 Rishi3 57
-100755 John 55
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
----- next patient:  2 ---------------
-100357 Rishi 57
-100657 Rishi3 57
----- next patient:  1 ---------------
-100755 John 55
------------------New Patient Entered-----------------
+100945, Pradeep
+100726, Danush
+100254, Ajay
+100426, Kunal
+100357, Rishi
+100855, John
+100558, Anil
+100160, Surya
+------------------------------------------------------
+
+---------------next patient: 2 ---------------
+Next patient for testing is: 100160, Surya
+Next patient for testing is: 100558, Anil
+------------------------------------------------------
+
+---------------next patient: 1 ---------------
+Next patient for testing is: 100357, Rishi
+------------------------------------------------------
+
+-----------------new patient entered------------------
+Patient details: Sandeep, 70, 101070
 Refreshed queue:
-100460 Surya1 60
-100960 Sandeep 60
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
------------------New Patient Entered-----------------
+100254, Ajay
+100426, Kunal
+100726, Danush
+100855, John
+100945, Pradeep
+101070, Sandeep
+------------------------------------------------------
+
+---------------next patient: 3 ---------------
+Next patient for testing is: 101070, Sandeep
+Next patient for testing is: 100855, John
+Next patient for testing is: 100254, Ajay
+------------------------------------------------------
+
+-----------------new patient entered------------------
+Patient details: Ram, 85, 101185
 Refreshed queue:
-100460 Surya1 60
-100960 Sandeep 60
-101060 Test 60
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
------------------New Patient Entered-----------------
+100726, Danush
+100426, Kunal
+100945, Pradeep
+101185, Ram
+------------------------------------------------------
+
+-----------------new patient entered------------------
+Patient details: Sham, 15, 101215
 Refreshed queue:
-100460 Surya1 60
-100960 Sandeep 60
-101060 Test 60
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
-101145 Test1 45
------------------New Patient Entered-----------------
-Refreshed queue:
-100460 Surya1 60
-100960 Sandeep 60
-101060 Test 60
-100254 Ajay 54
-100554 Ajay2 54
-100845 Pradeep 45
-101145 Test1 45
-101245 Tes2 45
+101215, Sham
+100726, Danush
+100426, Kunal
+100945, Pradeep
+101185, Ram
+------------------------------------------------------
+

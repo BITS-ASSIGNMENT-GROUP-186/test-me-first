@@ -3,7 +3,7 @@ nextPatient: 1
 newPatient: Pradeep, 45
 nextPatient: 2
 nextPatient: 1
-newPatient: Sandeep, 60
-newPatient: Test, 60
-newPatient: Test1, 45
-newPatient: Tes2, 45
+newPatient: Sandeep, 70
+nextPatient: 3
+newPatient: Ram, 85
+newPatient: Sham, 15
