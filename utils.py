@@ -88,7 +88,7 @@ class PatientUtils:
             self.patient_list.add(name=name, age=age, patient_id=patient_id)
             self.id_count += 1
             # Enqueuing patients in the heap
-            self.enqueuePatient(patient_id=int(patient_id))
+            self.enqueuePatient(PatId=int(patient_id))
             return patient_id
         except Exception as e:
             raise e
@@ -158,9 +158,9 @@ class PatientUtils:
         except Exception as e:
             raise e
 
-    def enqueuePatient(self, patient_id):
+    def enqueuePatient(self, PatId):
         try:
-            self.testing_queue.add(patient_id=int(patient_id))
+            self.testing_queue.add(patient_id=int(PatId))
         except Exception as e:
             raise e
 
@@ -175,13 +175,13 @@ class PatientUtils:
             for i in range(int(num_of_patients)):
                 max_patient_id = self.testing_queue.max()
                 # Dequeue patient who has completed testing
-                self.dequeuePatient()
+                self._dequeuePatient(max_patient_id)
                 self.file_output.write(f"Next patient for testing is: {max_patient_id}, {self.patient_list.getPatientName(str(max_patient_id))}\n")
             self.file_output.write("---------------------------------------------------\n")
         except Exception as e:
             raise e
 
-    def dequeuePatient(self):
+    def _dequeuePatient(self, PatId):
         try:
             return self.testing_queue.remove_max()
         except Exception as e:
