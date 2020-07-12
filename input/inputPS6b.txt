@@ -1,13 +1,25 @@
-newPatient: John, 180
-nextPatient: 1
-newPatient: Pradeep, 45,43
-xyz:abc
-nextPatient: 200
-nextPatient: 1
-newPatient: Sandeep,60
-newPatient: Test, 60
-nextPatient: abc
-newPatient: Test1, 45
-newPatient: Tes2, 45
+newPatient: John, 55
+John2: newPatient, 55
+newPatient: John3,103
+newPatient: John4,102.4
+newPatient: John4,302
+newPatient:John5
+newPatient:
+ddfs
+nextPatient: 2.5
+nextPatient:abc
+nextPAtient:12
+nextPatient:
 
-nextPatient: 12
+#nextPatient:15
+nextPatient:15
+newPatient: Pradeep, 45
+newPatient: Pradeep2, 45
+nextPatient: 2
+nextPatient: 1
+newPatient: Sandeep, 70
+newPatient: Pradeep3, 45
+nextPatient: 3
+newPatient: Ram, 85
+newPatient: Sham, 15
+nextPatient:50

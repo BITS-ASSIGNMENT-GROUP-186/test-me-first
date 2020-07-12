@@ -107,29 +107,12 @@ class MaxHeap:
         if self.size>0 :
             return self.Heap[self.FRONT]
 
-    def test_dequeMax(self):
-        #print(str(self.Heap[self.FRONT]) + " exchanged with " + str(self.size) + " ie :" + str(self.Heap[self.size]))
-        self.Heap[self.FRONT] = self.Heap[self.size]
-        self.size -= 1
-        self.test_downheap(1)
-        self.FRONT=1
-
-    def test_upheap(self, i):
-        i = int(i)
-        parent = int(i / 2)
-        # print(str(parent)+"is parent of"+str(self.Heap[i]))
-        largest = self.Heap[i] % 100
-        if (parent) > 0:
-            if (i % 2 == 0):  # it is a left node
-                if largest > (self.Heap[parent]) % 100:  # compare with parent
-                    self.swap(i, parent)  # swap with parent if its bigger than parent
-            else:
-                if largest > (self.Heap[parent]) % 100:  # compare with parent
-                    if largest > (self.Heap[i - 1]) % 100:  # compare with left sibling
-                        self.swap(i, parent)  # swap with parent if its bigger than parent and left sibling
-                    else:
-                        self.swap(i - 1, parent)  # swap parent with left sibling
-            self.test_upheap(parent)
+    def test_dequeMax(self,Patient_id):
+        if self.Heap[self.FRONT]==Patient_id :
+            self.Heap[self.FRONT] = self.Heap[self.size]
+            self.size -= 1
+            self.test_downheap(1)
+            self.FRONT=1
 
     def test_downheap(self, i):
         FlagL=0

@@ -28,6 +28,7 @@ class PatientUtils:
         self.id_count = 1001
         self.patient_list = PatientList()
         self.testingQueue = MaxHeap(20)
+        self.flag_next = 2
 
     def registerPatient(self, name, age):
         try:
@@ -53,41 +54,43 @@ class PatientUtils:
         patid= self.testingQueue.extractMax()
         PatientRecord= self.patient_list.getPatientDetails(str(patid))
         if PatientRecord:
+            self.flag_next=1
             self.file_output.write(PatientRecord[0] + " " + PatientRecord[1] + " " + PatientRecord[2] + "\n")
-        else:
+            self._dequeuePatient(patid)
+        elif self.flag_next==1:
             self.file_output.write("No more patients in wait list \n")
-        self._dequeuePatient(patid)
+            self.flag_next=0
 
     def _dequeuePatient(self, PatId):
-        self.testingQueue.test_dequeMax()
+        self.testingQueue.test_dequeMax(int(PatId))
 
     def WriteSortedPatientRecord(self):
-        n=self.testingQueue.size
+        n = self.testingQueue.size
         arr = [None] * n
         for i in range(0, n):
-            arr[i] = self.testingQueue.Heap[i+1]
+            arr[i] = self.testingQueue.Heap[i + 1]
 
         for i in range(0, n):
-            maxe = arr[i]%100
-            for j in range(i+1, n):
-                if (arr[j]%100 > maxe):
-                    temp=arr[i]
-                    arr[i]=arr[j]
-                    arr[j]=temp
-                    maxe=arr[i]%100
+            maxe = arr[i] % 100
+            for j in range(i + 1, n):
+                if (arr[j] % 100 > maxe):
+                    temp = arr[i]
+                    arr[i] = arr[j]
+                    arr[j] = temp
+                    maxe = arr[i] % 100
                 elif (arr[j] % 100 == maxe):
-                    if (arr[j]<arr[i]):
+                    if (arr[j] < arr[i]):
                         temp = arr[i]
                         arr[i] = arr[j]
                         arr[j] = temp
                         maxe = arr[i] % 100
-
+            # print
         for i in range(0, n):
-            PatientRecord=self.patient_list.getPatientDetails(str(arr[i]))
+            PatientRecord = self.patient_list.getPatientDetails(str(arr[i]))
             if PatientRecord:
-                self.file_output.write(PatientRecord[0]+" "+PatientRecord[1]+" "+PatientRecord[2]+"\n")
+                self.file_output.write(PatientRecord[0] + " " + PatientRecord[1] + " " + PatientRecord[2] + "\n")
 
-    def read_patient_info(self,file_path,Filetype):
+    def read_patient_info_and_process(self,file_path,Filetype):
         try:
             flag=0
             with open(file_path, 'r') as file:
@@ -114,14 +117,14 @@ class PatientUtils:
                                 self.file_output.write("**Error in file 2 at line: "+str(ctr) +" : Invalid Keyword :'nextPatient' and 'newPatient' are only valid\n")
                         elif "nextPatient:" in data:
                             temp, x = data.split(":")
-                            if (temp=="nextPatient" and len(x)==2 and x.strip().isnumeric() and int(x)<100):
+                            if (temp=="nextPatient" and len(data.split(":"))==2 and x.strip().isnumeric()):
                                 self.write_file(2,x)
                                 x = int(x)
                                 while x > 0:
                                     self.nextPatient()
                                     x-=1
                             else:
-                                self.file_output.write("**Error in file 2 at line: "+str(ctr) +" : Invalid entry for nextPatient.Valid format is 'nextPatient:age' where age is numeric and less thn 100\n")
+                                self.file_output.write("**Error in file 2 at line: "+str(ctr) +" : Invalid entry for nextPatient.Valid format is 'nextPatient:x' where x is numeric\n")
                         else:
                             self.file_output.write("**Error in file 2 at line: "+str(ctr) +" : Invalid Keyword :'nextPatient' and 'newPatient' are only valid\n")
                 elif str(Filetype)=="Type1":
