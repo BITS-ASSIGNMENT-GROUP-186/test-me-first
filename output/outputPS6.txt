@@ -1,4 +1,4 @@
------------------registerPatient-----------------
+-----------------initial queue-----------------
 No of patients added: 7
 Refreshed queue:
 100160, Surya

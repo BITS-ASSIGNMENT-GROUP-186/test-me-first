@@ -150,29 +150,6 @@ class TestingQueue(TestingQueueBase):
         """
         self._data[i], self._data[j] = self._data[j], self._data[i]
 
-    # def _upheap(self, j):
-    #     parent = self._parent(j)
-    #     if j > 0 and self._data[j] > self._data[parent]:
-    #         self._swap(j, parent)
-    #         self._upheap(parent)  # recur at position of parent
-
-    def _downheap(self, j):
-        if self._has_left(j):
-            left = self._left(j)
-            big_child = left  # although right may be bigger
-            if self._has_right(j):
-                right = self._right(j)
-                if self._data[right] > self._data[left]:
-                    big_child = right
-            if self._data[big_child] > self._data[j]:
-                self._swap(j, big_child)
-                self._downheap(big_child)  # recur at position of small child
-
-    def maxHeapify(self):
-        start = self._parent(len(self._data) - 1)  # start at PARENT of last leaf
-        for j in range(start, -1, -1):  # going to and including the root
-            self._downheap(j)
-
     # Public behaviours
     def __init__(self):
         """Create a new empty Priority Queue"""
@@ -186,7 +163,6 @@ class TestingQueue(TestingQueueBase):
         try:
             """Add a key-value pair to the priority queue"""
             self._data.append(self._Item(patient_id % 100, patient_id))
-            self.maxHeapify()
         except Exception as e:
             raise e
 
@@ -195,29 +171,29 @@ class TestingQueue(TestingQueueBase):
         Return but do not remove (k,v) tuple with maximum key.
         Raise exception if empty.
         """
-        if self. is_empty():
-            raise Exception("Priority Queue/Heap is empty. Please fill some values and try again!!!")
+        if self.is_empty():
+            raise Exception("Priority Queue/Heap is empty! Please fill some values and try again.")
         item = self._data[-1]
         return item.patient_id
 
     # sort
-    def sort(self):
+    def heapSort(self):
         n = len(self._data)
 
         # Build a maxheap.
         # Since last parent will be at ((n//2)-1) we can start at that location.
         for i in range(n // 2 - 1, -1, -1):
-            self.sortHeapify(n, i)
+            self.heapify(n, i)
 
         # One by one extract elements
         for i in range(n - 1, 0, -1):
             if self._data[i] == self._data[0] and self._data[0].patient_id > self._data[i].patient_id:
-                self.sortHeapify(i, 0)
+                self.heapify(i, 0)
                 continue
             self._swap(i, 0)
-            self.sortHeapify(i, 0)
+            self.heapify(i, 0)
 
-    def sortHeapify(self, n, i):
+    def heapify(self, n, i):
         largest = i  # largest value
         left_child = self._left(i)
         right_child = self._right(i)
@@ -233,7 +209,7 @@ class TestingQueue(TestingQueueBase):
         # root
         if largest != i:
             self._swap(i, largest)
-            self.sortHeapify(n, largest)
+            self.heapify(n, largest)
 
     def remove_max(self):
         """
@@ -241,7 +217,7 @@ class TestingQueue(TestingQueueBase):
         Raise exception if empty.
         """
         if self.is_empty():
-            raise Exception("Priority Queue/Heap is empty. Please fill some values and try again!!!")
+            raise Exception("Priority Queue/Heap is empty! Please fill some values and try again.")
         item = self._data.pop()  # and remove it from the list;
         return item.age, item.patient_id
 
