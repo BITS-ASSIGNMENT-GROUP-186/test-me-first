@@ -1,18 +1,29 @@
 -----------------initial queue-----------------
-No of patients added: 3
+No of patients added: 4
 Refreshed queue:
 100160, Surya
 100357, Rishi
 100254, Ajay
+100426, Kunal
 ------------------------------------------------
 
+******************************************************************************************************************
+inputPS6a.txt, line 5: Invalid value of age ''. Age can only be a numeric and positive. Patient not registered.
+inputPS6a.txt, line 6: Invalid value of name given '24'. Name can only be a string. Patient not registered.
+inputPS6a.txt, line 7: Age given is 150. Age can't be lower than 1 nor greater than 99. Patient not registered.
+inputPS6a.txt, line 8: Invalid value of age '-6'. Age can only be a numeric and positive. Patient not registered.
+******************************************************************************************************************
+
+
+
 -----------------new patient entered-----------------
-Patient details:  John,  55, 100455
+Patient details:  John,  55, 100555
 Refreshed queue:
 100160, Surya
 100357, Rishi
-100455, John
+100555, John
 100254, Ajay
+100426, Kunal
 ------------------------------------------------
 
 ---- next patient : 1 ---------------
@@ -21,17 +32,18 @@ Next patient for testing is: 100160, Surya
 
 
 -----------------new patient entered-----------------
-Patient details:  Pradeep,  45, 100545
+Patient details:  Pradeep,  45, 100645
 Refreshed queue:
 100357, Rishi
-100455, John
+100555, John
 100254, Ajay
-100545, Pradeep
+100645, Pradeep
+100426, Kunal
 ------------------------------------------------
 
 ---- next patient : 2 ---------------
 Next patient for testing is: 100357, Rishi
-Next patient for testing is: 100455, John
+Next patient for testing is: 100555, John
 ---------------------------------------------------
 
 
@@ -41,15 +53,22 @@ Next patient for testing is: 100254, Ajay
 
 
 -----------------new patient entered-----------------
-Patient details:  Sandeep,  60, 100660
+Patient details:  Sandeep,  60, 100760
 Refreshed queue:
-100660, Sandeep
-100545, Pradeep
+100760, Sandeep
+100645, Pradeep
+100426, Kunal
 ------------------------------------------------
 
 ---- next patient : 3 ---------------
-Next patient for testing is: 100660, Sandeep
-Next patient for testing is: 100545, Pradeep
-******************************
-No more patients in queue!!
-******************************
+Next patient for testing is: 100760, Sandeep
+Next patient for testing is: 100645, Pradeep
+Next patient for testing is: 100426, Kunal
+---------------------------------------------------
+
+
+******************************************************************************************************************************************************************************************************
+inputPS6b.txt, line 8: Data 'nextPatient,' not in expected format. Please input data in the format: 'newPatient: name, age' or 'nextPatient: number_of_patients_next_in_queue'. Input not considered.
+inputPS6b.txt, line 9: Data 'test: 4' not in expected format. Please input data in the format: 'newPatient: name, age' or 'nextPatient: number_of_patients_next_in_queue'. Input not considered.
+******************************************************************************************************************************************************************************************************
+

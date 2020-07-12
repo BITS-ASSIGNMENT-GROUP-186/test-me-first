@@ -63,7 +63,7 @@ class PatientUtils:
                             continue
                         if not age.isnumeric():
                             self.input_file_a_errors.append(f"inputPS6a.txt, line {i + 1}: Invalid value of age '{age}'. "
-                                                            f"Age can only be a numeric. Patient not registered.\n")
+                                                            f"Age can only be a numeric and positive. Patient not registered.\n")
                             continue
                         if int(age.strip()) < 1 or int(age.strip()) > 99:
                             self.input_file_a_errors.append(f"inputPS6a.txt, line {i + 1}: Age given is {age}. "
@@ -171,6 +171,12 @@ class PatientUtils:
                                 self.input_file_b_errors.append(
                                     f"inputPS6b.txt, line {i + 1}: Invalid value of name given '{name}'. "
                                     f"Name can only be a string. Patient not registered.\n")
+                                continue
+
+                            if not age.strip().isnumeric():
+                                self.input_file_a_errors.append(
+                                    f"inputPS6b.txt, line {i + 1}: Invalid value of age '{age}'. "
+                                    f"Age can only be a numeric and positive. Patient not registered.\n")
                                 continue
 
                             if int(age.strip()) < 1 or int(age.strip()) > 99:
