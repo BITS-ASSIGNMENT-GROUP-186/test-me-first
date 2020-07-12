@@ -1,3 +1,8 @@
 Surya, 60
 Ajay, 54
 Rishi, 57
+Kunal, 26
+Vinayak,
+24, Khushi
+Keshav, 150
+Axel, -6

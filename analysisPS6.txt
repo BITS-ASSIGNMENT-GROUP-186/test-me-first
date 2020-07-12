@@ -1,0 +1,34 @@
+Time complexity of an algorithm quantifies the amount of time taken by an algorithm to run as a function of the length of the input.
+
+We examined our program on inputs of varied sizes in the range of (10-300) and found out that time complexity is in O(n*logn).
+
+The individual analysis of key functions used in the program is given below:
+
+•	def registerPatient(self, name, age) - This function is performing two major operations:
+
+    	When the program is executed for the first time and the patient details are loaded from an input file "inputPS6a.txt" we perform two operations:
+        1.	Build a max heap using upheap approach – O(n)
+        2.	Refreshing the queue based on age – O(n*logn)
+
+    	When a newPatient tag is encountered in the input file "inputPS6b.txt, we perform three operations:
+        1.	Adding patient to priority queue – O(1)
+        2.	Build a max heap using upheap approach – O(n)
+        3.	Refreshing the queue based on age – O(n*logn)
+
+•	def enqueuePatient(self, PatId) - This function adds new patient to the max heap. This function is called every time a new patient is added. It performs two operations:
+        1.	Assigning the patient a place in max heap – O(1)
+        2.	Refreshed the queue to keep it updated – O(n*logn)
+
+•	def nextPatient(self) - This function is called whenever program encounters “nextPatient” tag in “inputPS6b.txt” file.
+                            It fetches the highest priority patient from the priority queue which is always present at the root of the max heap.
+                            It performs two operations:
+        1.	Calls the dequeue function to get the highest priority patient – O(1)
+        2.	Writes the dequeued patient to the output screen – O(1)
+
+•	def _dequeuePatient(self, PatId) - This functions removes the patient from the heap and updates the queue. It performs two operations:
+        1.	Removes the patient id from the queue – O(1)
+        2.	Refreshes the queue – O(logn)
+
+The total time complexity of all the operations combined comes to O(n*logn) in the worst case also indicated the by
+the "Total time vs input size" graph “analysisPS6.png” present at the root location of this folder.
+
