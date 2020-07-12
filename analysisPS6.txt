@@ -1,0 +1,16 @@
+Time complexity of an algorithm quantifies the amount of time taken by an algorithm to run as a function of the length of the input. We examined our program on inputs of varied sizes in the range of (10-300) and found out that time complexity is in O(n*logn). The individual analysis of each of the component functions is as below - 
+
+1) def registerPatient(self, name, age) - This function is performing below two operations depending on the input files encountered - 
+
+	> When the program is executed for the first time and the patient details are loaded from an 	input file "inputPS6a.txt" we are using build heap bottom-up approach resulting in time 	complexity of O(n) and sorting the queue on basis of age of patients takes O(n*logn) time.
+
+	> Whereas whenever a newPatient tag is encountered in the input file "inputPS6b.txt", the 	addition of patient ID to the priority queue takes O(1) time but corresponding heapification to 	max heap and heap sorting aftwerwords is taking O(logn) and O(n*logn) time respectively.
+
+2) def enqueuePatient(self, PatId) - This function adds new patient to the max heap by assigning it a place 	on the basis of his age. Insertion in a heap is perfomed in O(1) time but heapification to decide 	its place according to his age and sorting will lead to O(logn) and O(n*logn) time complexity.
+
+3) def nextPatient(self) - This function is called whenever program encounters nextPatient tag. It fetches 	the highest priority patient from the priority queue which is always present at the root of the max 	heap, hence giving time complexity of O(1) but after the patient is serviced, it is removed from 	the queue by calling the function _dequeuePatient(self, PatId) which runs in O(logn) time. 	Hence complexity will be O(logn).
+
+4) def _dequeuePatient(self, PatId) - This functions deletes the patient which has been serviced by first 	swapping the root element with the last leaf node of the heap and then performing the delete 	operation which is performed in O(1) time but in order to maintain property of max heap, 	heapification has to be performed which takes place in O(logn) time complexity. Hence time 	complexity of this functions will be O(logn).
+
+
+"Total time vs input size" graph is also saved in the folder which shows that time complexity of our program is O(n*logn).
