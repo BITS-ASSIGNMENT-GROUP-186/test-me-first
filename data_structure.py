@@ -6,7 +6,6 @@ PatientRecord: A list containing the patient information including the patientâ€
 TestingQueue: A max heap containing the patient id sorted in order of next patient for testing based on the age of the patient.
 """
 
-
 class PatientRecord:
     """
     Represent a node of doubly linked list.
@@ -212,7 +211,7 @@ class TestingQueue(TestingQueueBase):
         Raise exception if empty.
         """
         if self.is_empty():
-            raise Exception("Priority Queue/Heap is empty! Please fill some values and try again.")
+            raise IndexError
         item = self._data[-1]
         return item.patient_id
 
@@ -278,7 +277,7 @@ class TestingQueue(TestingQueueBase):
         Raise exception if empty.
         """
         if self.is_empty():
-            raise Exception("Priority Queue/Heap is empty! Please fill some values and try again.")
+            raise IndexError
         item = self._data.pop()  # and remove it from the list;
         return item.age, item.patient_id
 

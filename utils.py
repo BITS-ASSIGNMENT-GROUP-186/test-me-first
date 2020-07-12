@@ -71,7 +71,7 @@ class PatientUtils:
 
                     except ValueError:
                         self.input_file_a_errors.append(f"inputPS6a.txt, line {i + 1}: Data '{data}' not in expected format."
-                                                        f" Please input data in the format: name, age. Patient not registered.\n")
+                                                     f" Please input data in the format: name, age. Patient not registered.\n")
                         continue
 
                     # Add patients to Patient Record List
@@ -165,6 +165,18 @@ class PatientUtils:
                         operation, parameters = data.split(":")
                         if operation == "newPatient":
                             name, age = parameters.split(",")
+
+                            if not name.strip().isalpha():
+                                self.input_file_b_errors.append(
+                                    f"inputPS6b.txt, line {i + 1}: Invalid value of name given '{name}'. "
+                                    f"Name can only be a string. Patient not registered.\n")
+                                continue
+
+                            if int(age.strip()) < 1 or int(age.strip()) > 99:
+                                self.input_file_b_errors.append(f"inputPS6b.txt, line {i + 1}: Age given is {age.strip()}. "
+                                                                f"Age can't be lower than 1 nor greater than 99. Patient with name '{name.strip()}' not registered.\n")
+                                continue
+
                             patient_id = self.registerPatient(name=name.strip(), age=age.strip())
                             # Refreshing the queue
                             self.testing_queue.heapSort()
@@ -180,6 +192,13 @@ class PatientUtils:
                         self.input_file_b_errors.append(f"inputPS6b.txt, line {i + 1}: Data '{data}' not in expected format. "
                                                         f"Please input data in the format: 'newPatient: name, age' or "
                                                         f"'nextPatient: number_of_patients_next_in_queue'. Input not considered.\n")
+                        continue
+
+                    except IndexError:
+                        self.file_output.write(30 * "*")
+                        self.file_output.write("\n")
+                        self.file_output.write("No more patients in queue!!\n")
+                        self.file_output.write(30 * "*")
                         continue
 
                 # Write all errors of input file PS6b, if any
@@ -205,14 +224,17 @@ class PatientUtils:
         :return: None
         """
         try:
-            self.file_output.write("\n\n")
-            self.file_output.write(f"---- next patient : {num_of_patients} ---------------\n")
-            for i in range(int(num_of_patients)):
-                max_patient_id = self.testing_queue.max()
-                # Dequeue patient who has completed testing
-                self._dequeuePatient(max_patient_id)
-                self.file_output.write(f"Next patient for testing is: {max_patient_id}, {self.patient_list.getPatientName(str(max_patient_id))}\n")
-            self.file_output.write("---------------------------------------------------\n")
+            if num_of_patients.isnumeric():
+                self.file_output.write("\n\n")
+                self.file_output.write(f"---- next patient : {num_of_patients} ---------------\n")
+                for i in range(int(num_of_patients)):
+                    max_patient_id = self.testing_queue.max()
+                    # Dequeue patient who has completed testing
+                    self._dequeuePatient(max_patient_id)
+                    self.file_output.write(f"Next patient for testing is: {max_patient_id}, {self.patient_list.getPatientName(str(max_patient_id))}\n")
+                self.file_output.write("---------------------------------------------------\n")
+            else:
+                raise ValueError
         except Exception as e:
             raise e
 

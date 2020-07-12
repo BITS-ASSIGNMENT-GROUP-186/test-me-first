@@ -1,150 +1,103 @@
 -----------------initial queue-----------------
-No of patients added: 14
+No of patients added: 7
 Refreshed queue:
-101083, Hop
-100976, Lunea
 100160, Surya
-101160, Lisandra
 100660, Vivek
 100558, Anil
 100357, Rishi
 100254, Ajay
-101342, Keely
-101431, Scott
-101231, Imogene
-100726, Danush
 100426, Kunal
-100813, Drew
+100726, Danush
 ------------------------------------------------
 
 -----------------new patient entered-----------------
-Patient details:  John,  55, 101555
+Patient details:  John,  55, 100855
 Refreshed queue:
-101083, Hop
-100976, Lunea
 100660, Vivek
-101160, Lisandra
 100160, Surya
 100558, Anil
 100357, Rishi
-101555, John
+100855, John
 100254, Ajay
-101342, Keely
-101231, Imogene
-101431, Scott
 100426, Kunal
 100726, Danush
-100813, Drew
 ------------------------------------------------
 
 ---- next patient : 1 ---------------
-Next patient for testing is: 101083, Hop
+Next patient for testing is: 100660, Vivek
 ---------------------------------------------------
 
 
 -----------------new patient entered-----------------
-Patient details:  Pradeep,  45, 101645
+Patient details:  Pradeep,  45, 100945
 Refreshed queue:
-100976, Lunea
 100160, Surya
-101160, Lisandra
-100660, Vivek
 100558, Anil
 100357, Rishi
-101555, John
+100855, John
 100254, Ajay
-101645, Pradeep
-101342, Keely
-101231, Imogene
-101431, Scott
+100945, Pradeep
 100426, Kunal
 100726, Danush
-100813, Drew
 ------------------------------------------------
 
 ---- next patient : 2 ---------------
-Next patient for testing is: 100976, Lunea
 Next patient for testing is: 100160, Surya
----------------------------------------------------
-
-
----- next patient : 1 ---------------
-Next patient for testing is: 101160, Lisandra
----------------------------------------------------
-
-
------------------new patient entered-----------------
-Patient details:  Sandeep,  70, 101770
-Refreshed queue:
-101770, Sandeep
-100660, Vivek
-100558, Anil
-100357, Rishi
-101555, John
-100254, Ajay
-101645, Pradeep
-101342, Keely
-101431, Scott
-101231, Imogene
-100426, Kunal
-100726, Danush
-100813, Drew
-------------------------------------------------
-
----- next patient : 3 ---------------
-Next patient for testing is: 101770, Sandeep
-Next patient for testing is: 100660, Vivek
 Next patient for testing is: 100558, Anil
 ---------------------------------------------------
 
 
+---- next patient : 1 ---------------
+Next patient for testing is: 100357, Rishi
+---------------------------------------------------
+
+
 -----------------new patient entered-----------------
-Patient details:  Ram,  85, 101885
+Patient details:  Sandeep,  30, 101030
 Refreshed queue:
-101885, Ram
-100357, Rishi
-101555, John
+100855, John
 100254, Ajay
-101645, Pradeep
-101342, Keely
-101231, Imogene
-101431, Scott
+100945, Pradeep
+101030, Sandeep
 100426, Kunal
 100726, Danush
-100813, Drew
+------------------------------------------------
+
+---- next patient : 2 ---------------
+Next patient for testing is: 100855, John
+Next patient for testing is: 100254, Ajay
+---------------------------------------------------
+
+
+-----------------new patient entered-----------------
+Patient details:  Ram,  85, 101185
+Refreshed queue:
+101185, Ram
+100945, Pradeep
+101030, Sandeep
+100426, Kunal
+100726, Danush
 ------------------------------------------------
 
 -----------------new patient entered-----------------
-Patient details:  Sham,  15, 101915
+Patient details:  Sham,  15, 101215
 Refreshed queue:
-101885, Ram
-100357, Rishi
-101555, John
-100254, Ajay
-101645, Pradeep
-101342, Keely
-101431, Scott
-101231, Imogene
-100726, Danush
+101185, Ram
+100945, Pradeep
+101030, Sandeep
 100426, Kunal
-101915, Sham
-100813, Drew
+100726, Danush
+101215, Sham
 ------------------------------------------------
 
 -----------------new patient entered-----------------
-Patient details:  Sam,  15, 102015
+Patient details:  Sam,  15, 101315
 Refreshed queue:
-101885, Ram
-100357, Rishi
-101555, John
-100254, Ajay
-101645, Pradeep
-101342, Keely
-101231, Imogene
-101431, Scott
-100426, Kunal
+101185, Ram
+100945, Pradeep
+101030, Sandeep
 100726, Danush
-101915, Sham
-102015, Sam
-100813, Drew
+100426, Kunal
+101215, Sham
+101315, Sam
 ------------------------------------------------
