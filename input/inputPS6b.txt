@@ -4,14 +4,6 @@ newPatient: John3,103
 newPatient: John4,102.4
 newPatient: John4,302
 newPatient:John5
-newPatient:
-ddfs
-nextPatient: 2.5
-nextPatient:abc
-nextPAtient:12
-nextPatient:
-
-#nextPatient:15
 nextPatient:15
 newPatient: Pradeep, 45
 newPatient: Pradeep2, 45

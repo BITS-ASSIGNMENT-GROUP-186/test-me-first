@@ -64,7 +64,23 @@ class PatientUtils:
     def _dequeuePatient(self, PatId):
         self.testingQueue.test_dequeMax(int(PatId))
 
-    def WriteSortedPatientRecord(self):
+    def WriteSortedPatientRecord(self):#copy the heap to another array nd perform heap sort# copy itt back to the heap and heapify
+        n = self.testingQueue.size
+        arr = [None] * n
+        for i in range(0, n):
+            arr[i] = self.testingQueue.Heap[i + 1]
+        for i in range(0,n):
+            patid = self.testingQueue.extractMax()
+            PatientRecord = self.patient_list.getPatientDetails(str(patid))
+            if PatientRecord:
+                self.flag_next = 1
+                self.file_output.write(PatientRecord[0] + " " + PatientRecord[1] + " " + PatientRecord[2] + "\n")
+                self._dequeuePatient(patid)
+        self.testingQueue.size = n
+        for i in range(0, n):
+            self.testingQueue.Heap[i + 1]=arr[i]
+        self.testingQueue.test_downheap(1)
+    def WriteSortedPatientRecord1(self):
         n = self.testingQueue.size
         arr = [None] * n
         for i in range(0, n):
