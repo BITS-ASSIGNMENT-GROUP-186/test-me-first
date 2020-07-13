@@ -35,12 +35,6 @@ class MaxHeap:
         self.test_downheap(1)
         self.FRONT=1
 
-    def test_deque_for_sorting(self):
-        self.Heap[self.FRONT] = self.Heap[self.size]
-        self.size -= 1
-        self.test_downheap(1)
-        self.FRONT=1
-
     def test_upheap(self, i):
         i = int(i)
         parent = int(i / 2)

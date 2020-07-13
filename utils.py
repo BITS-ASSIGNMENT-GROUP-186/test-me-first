@@ -45,11 +45,6 @@ class PatientUtils:
     def enqueuePatient(self, PatId):
         self.testingQueue.test_insert(int(PatId))
 
-    def SortQueue(self):
-        n=self.testingQueue.size
-        if (n>1):
-            self.testingQueue.test_upheap(n)
-
     def nextPatient(self):
         patid= self.testingQueue.extractMax()
         PatientRecord= self.patient_list.getPatientDetails(str(patid))

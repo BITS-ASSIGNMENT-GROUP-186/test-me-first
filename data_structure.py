@@ -131,15 +131,25 @@ class MaxHeap:
                     if ((self.Heap[Left]) % 100)<((self.Heap[Right]) % 100):
                         self.swap(Right, i)  # swap right with parent if its bigger than both parent and left
                         self.test_downheap(Right)
+                    elif ((self.Heap[Left]) % 100)==((self.Heap[Right]) % 100)and (self.Heap[Left]) > (self.Heap[Right]): # swap right with parent if its bigger than both parent and left
+                        self.swap(Right,i)
+                        self.test_downheap(Right)
                     else:
                         self.swap(Left, i)  # swap left with parent if its bigger than both parent and right
                         self.test_downheap(Left)
                 else:
                     self.swap(Left, i)  # swap left with parent if its bigger than parent and right doesnt exist
                     self.test_downheap(Left)
-            elif FlagR==1 and largest < (self.Heap[Right]) % 100:  # compare with right child when left is less than parent
-                self.swap(Right, i)  # swap right with parent if its bigger than both parent and left
-                self.test_downheap(Right)
+            elif largest == (self.Heap[Left]) % 100 and (self.Heap[i]) > (self.Heap[Left]):  # if two patients hve same age, one with lesser ptient id should get priority
+                self.swap(Left, i)  # swap right with parent if its bigger than both parent and left
+                self.test_downheap(Left)
+            elif FlagR==1:
+                    if largest < (self.Heap[Right]) % 100:  # compare with right child when left is less than parent
+                        self.swap(Right, i)  # swap right with parent if its bigger than both parent and left
+                        self.test_downheap(Right)
+                    elif largest == (self.Heap[Right]) % 100 and (self.Heap[i]) > (self.Heap[Right]):  # if two patients hve same age, one with lesser ptient id should get priority
+                        self.swap(Right, i)  # swap right with parent if its bigger than both parent and left
+                        self.test_downheap(Right)
 
     def test_insert(self, element):
         self.size += 1

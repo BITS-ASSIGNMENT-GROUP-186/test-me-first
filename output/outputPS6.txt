@@ -4,19 +4,19 @@ No of patients added: 6
 Refreshed queue:
 100160 Surya 60
 100460 Surya1 60
-100657 Rishi3 57
 100357 Rishi 57
+100657 Rishi3 57
 100254 Ajay 54
 100554 Ajay2 54
 -----------------New Patient Entered-----------------
 Refreshed queue:
 100160 Surya 60
 100460 Surya1 60
-100657 Rishi3 57
 100357 Rishi 57
+100657 Rishi3 57
 100755 John 55
-100554 Ajay2 54
 100254 Ajay 54
+100554 Ajay2 54
 **Error in file 2 at line: 2 : Invalid Keyword :'nextPatient' and 'newPatient' are only valid
 **Error in file 2 at line: 3 : Invalid input for age :Age must be numeric and less than 100
 **Error in file 2 at line: 4 : Invalid input for age :Age must be numeric and less than 100
@@ -25,11 +25,11 @@ Refreshed queue:
 ---- next patient: 15 ---------------
 100160 Surya 60
 100460 Surya1 60
-100657 Rishi3 57
 100357 Rishi 57
+100657 Rishi3 57
 100755 John 55
-100554 Ajay2 54
 100254 Ajay 54
+100554 Ajay2 54
 No more patients in wait list 
 -----------------New Patient Entered-----------------
 Refreshed queue:
